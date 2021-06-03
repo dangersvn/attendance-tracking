@@ -26,9 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("JPAUserDetailsService")
     UserDetailsService userDetailsService;
-
-    @Autowired
-    JwtRequestFilter jwtRequestFilter;
+//
+//    @Autowired
+//    JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,17 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.jdbcAuthentication()
 //                .usersByUsernameQuery("SELECT username, password, is_active WHERE username = ?")
 //                .authoritiesByUsernameQuery("SELECT ")
-        auth.userDetailsService(userDetailsService);
+//        auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/barcoderecord/**").hasAnyAuthority(Student.class.getSimpleName(), Personnel.class.getSimpleName())
+//                .antMatchers("/**").permitAll()
+//                .antMatchers("/barcoderecord/**").hasAnyAuthority(Student.class.getSimpleName(), Personnel.class.getSimpleName())
 //                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    .anyRequest().permitAll();
 //        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         //Those two settings below is to enable access h2 database via browser
