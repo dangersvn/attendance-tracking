@@ -1,15 +1,15 @@
 package miu.edu.attendance.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import miu.edu.attendance.dto.RegisterUserDto;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor @Getter
+@NoArgsConstructor @Getter @ToString
 @Entity
 public class Person {
     @Id
@@ -35,5 +35,32 @@ public class Person {
 
     public void addRole(PersonRole role) {
         roles.add(role);
+    }
+
+    public Student asStudent() {
+        for (PersonRole role : roles) {
+            if(role.getName().equalsIgnoreCase("STUDENT")) {
+                return (Student) role;
+            }
+        }
+        return null;
+    }
+
+    public Faculty asFaculty() {
+        for (PersonRole role : roles) {
+            if(role.getName().equalsIgnoreCase("FACULTY")) {
+                return (Faculty) role;
+            }
+        }
+        return null;
+    }
+
+    public Personnel asPersonnel() {
+        for (PersonRole role : roles) {
+            if(role.getName().equalsIgnoreCase("PERSONNEL")) {
+                return (Personnel) role;
+            }
+        }
+        return null;
     }
 }

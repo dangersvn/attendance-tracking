@@ -1,6 +1,9 @@
 package miu.edu.attendance.service;
 
-import miu.edu.attendance.domain.*;
+import miu.edu.attendance.domain.Faculty;
+import miu.edu.attendance.domain.Person;
+import miu.edu.attendance.domain.Personnel;
+import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.dto.RegisterUserDto;
 import miu.edu.attendance.repository.PersonRepository;
 import miu.edu.attendance.repository.PersonRoleRepository;

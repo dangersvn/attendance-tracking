@@ -1,68 +1,122 @@
 package miu.edu.attendance.config;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Qualifier;
+import miu.edu.attendance.domain.*;
+import miu.edu.attendance.dto.RegisterUserDto;
+import miu.edu.attendance.repository.*;
+import miu.edu.attendance.service.PersonService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Configuration
 @Log4j2
 public class InitializeData {
-    /*@Bean
-    public CommandLineRunner loadData(RoleRepository repository, UserRepository userRepository, CarRepository carRepository,
-                                      @Qualifier("BlockchainUserServiceImpl") UserService userService,
-                                      @Qualifier("BlockchainCarServiceImpl") CarService carService) {
+    @Bean
+    public CommandLineRunner loadData(PersonRepository personRepository, PersonService personService, PersonRoleRepository personRoleRepository,
+                                      CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, RegistrationRepository registrationRepository) {
         return (args) -> {
-            userRepository.deleteAll();
-            userRepository.deleteAll();
-            repository.deleteAll();
 
-            // save roles
-            repository.save(new Role("ORGANIZATION"));
-            repository.save(new Role("USER"));
+            // register persons
+            RegisterUserDto registerUserDto = new RegisterUserDto("dang", "123", "Dang", "Nguyen", "STUDENT");
+            Person student = personService.registerPerson(registerUserDto);
 
-            // fetch all roles
-            log.info("Roles found with findAll():");
+            registerUserDto = new RegisterUserDto("stellavera", "123", "Stellavera ", "Kilcher", "FACULTY");
+            Person facultyPerson = personService.registerPerson(registerUserDto);
+
+            registerUserDto = new RegisterUserDto("john", "123", "John", "Smith", "PERSONNEL");
+            personService.registerPerson(registerUserDto);
+
+            registerUserDto = new RegisterUserDto("admin", "123", "Miller", "Smith", "ADMIN");
+            personService.registerPerson(registerUserDto);
+
+            // fetch all persons
+            log.info("Persons found with findAll():");
             log.info("--------------------------------------------------------------");
-            for (Role role : repository.findAll()) {
-                log.info(role.toString());
+            for (Person person : personRepository.findAll()) {
+                log.info(person.toString());
             }
 
-            // add organization user
-            RegisterUserDto orgUser = new RegisterUserDto("Dang", "Nguyen", "+84989302594",
-                    "9999-999-99", "haidang063@gmail.com", "123",
-                    new AddressDto("407 N 6th st", "", "52556", "jeferson", "FairField", "IA"), "");
-            userService.registerUser(orgUser, "ORGANIZATION");
+            // create Courses
+            Course ea = new Course("EA", "Enterprise Architecture");
+            courseRepository.save(ea);
+            Course waa = new Course("WAA", "Web Application Architecture");
+            courseRepository.save(waa);
+            Course mwa = new Course("MWA", "Modern Web Application");
+            courseRepository.save(mwa);
 
-            // add a normal user
-            RegisterUserDto normalUser = new RegisterUserDto("Huu Viet", "Nguyen", "+6415555555",
-                    "8888-888-88", "viet@gmail.com", "123",
-                    new AddressDto("407 N 6th st", "", "52556", "jeferson", "FairField", "IA"), "");
-
-            User savedNormalUser = userService.registerUser(normalUser, "USER");
-
-            log.info("Registered Users:");
+            // fetch all courses
+            log.info("Courses found with findAll():");
             log.info("--------------------------------------------------------------");
-            userRepository.findAll().forEach(
-                    user1 -> log.info(user1)
-            );
+            for (Course c : courseRepository.findAll()) {
+                log.info(c.toString());
+            }
 
-            JPAUserDetails userDetails = new JPAUserDetails(savedNormalUser);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            // create CourseOfferings
+            CourseOffering eaMay2021 = new CourseOffering(ea, LocalDate.of(2021, 5, 01), LocalDate.of(2021, 5, 22));
+            CourseOffering eaJune2021 = new CourseOffering(ea, LocalDate.of(2021, 6, 01), LocalDate.of(2021, 6, 22));
+            CourseOffering waaMay2021 = new CourseOffering(waa, LocalDate.of(2021, 5, 01), LocalDate.of(2021, 5, 22));
+            CourseOffering waaJune2021 = new CourseOffering(waa, LocalDate.of(2021, 6, 01), LocalDate.of(2021, 6, 22));
+            courseOfferingRepository.save(eaMay2021);
+            courseOfferingRepository.save(eaJune2021);
+            courseOfferingRepository.save(waaMay2021);
+            courseOfferingRepository.save(waaJune2021);
 
-            AddCarDto carDto = new AddCarDto("VIN-111", "Toyota", "Camry", "Red", normalUser.getSsn(), "150000", "100000", "2021", "NEW", "8", "Automatic", "Mid-size", "GAS", "CLEAN", "4wd","SUV", "IA", "");
-            carService.addCar(carDto);
-            AddCarDto carDto2 = new AddCarDto("VIN-222", "Ford", "Escape", "Blue", normalUser.getSsn(), "6000", "75000", "2021", "USED", "8", "Automatic", "BIG-size", "GAS", "CLEAN", "awd","SUV", "IA", "");
-            carService.addCar(carDto2);
-
-            log.info("Registered Cars:");
+            // fetch all course offering
+            log.info("CourseOffering found with findAll():");
             log.info("--------------------------------------------------------------");
-            carRepository.findAll().forEach(car -> log.info(new AddCarDto(car)));
+            for (CourseOffering cf : courseOfferingRepository.findAll()) {
+                log.info(cf.toString());
+            }
+
+            // assign course offering to faculty
+            Faculty f = facultyPerson.asFaculty();
+            if(f != null) {
+                f.addCourseOffering(eaMay2021);
+                f.addCourseOffering(eaJune2021);
+                f.addCourseOffering(waaMay2021);
+                f.addCourseOffering(waaJune2021);
+            }
+            personRoleRepository.save(f);
+
+            // fetch all course offering
+            log.info("CourseOffering by faculty:");
+            log.info("--------------------------------------------------------------");
+            Person fPerson = personRepository.findById(facultyPerson.getId()).orElseThrow();
+            for (CourseOffering cf : fPerson.asFaculty().getCourseCourseOfferings()) {
+                log.info(cf);
+            }
+
+            // student register course offerings
+            Student s = student.asStudent();
+            if(s != null) {
+                Registration eaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaMay2021);
+                s.registering(eaRegistration);
+                Registration waaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaJune2021);
+                s.registering(waaRegistration);
+            }
+            personRoleRepository.save(s);
+
+            // fetch all registrations from a student
+            log.info("Registration of a student:");
+            log.info("--------------------------------------------------------------");
+            Person studentPerson = personRepository.findById(student.getId()).orElseThrow();
+            for (Registration registration : studentPerson.asStudent().getRegistrations()) {
+                log.info(registration.toString());
+            }
+
+            // create Timeslot
+
+            // create ClassSession
+
+            // create Location
+
+
+
+
         };
-    }*/
+    }
 }
