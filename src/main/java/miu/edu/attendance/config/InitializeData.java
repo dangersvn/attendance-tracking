@@ -11,13 +11,15 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Configuration
 @Log4j2
 public class InitializeData {
     @Bean
     public CommandLineRunner loadData(PersonRepository personRepository, PersonService personService, PersonRoleRepository personRoleRepository,
-                                      CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, RegistrationRepository registrationRepository) {
+                                      CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, RegistrationRepository registrationRepository,
+                                      TimeSlotRepository timeSlotRepository) {
         return (args) -> {
 
             // register persons
@@ -109,13 +111,19 @@ public class InitializeData {
             }
 
             // create Timeslot
-
+            TimeSlot amTimeSlot = new TimeSlot("AM", LocalTime.of(10,0), LocalTime.of(12,15), "Morning time slot");
+            TimeSlot pmTimeSlot = new TimeSlot("PM", LocalTime.of(13,30), LocalTime.of(15,15), "Afternoon time slot");
+            timeSlotRepository.save(amTimeSlot);
+            timeSlotRepository.save(pmTimeSlot);
+            // fetch all time slots
+            log.info("TimeSlots found with findAll():");
+            log.info("--------------------------------------------------------------");
+            for (TimeSlot timeSlot : timeSlotRepository.findAll()) {
+                log.info(timeSlot.toString());
+            }
             // create ClassSession
 
             // create Location
-
-
-
 
         };
     }
