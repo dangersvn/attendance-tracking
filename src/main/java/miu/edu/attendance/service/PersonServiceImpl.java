@@ -55,4 +55,9 @@ public class PersonServiceImpl implements PersonService {
     public Person update(Person person) {
         return personRepository.save(person);
     }
+
+    @Override
+    public Person findByUsername(String username) {
+        return personRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException(String.format("Username=%d does not exist", username)));
+    }
 }
