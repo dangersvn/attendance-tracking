@@ -28,8 +28,8 @@ Content-Type: application/json
 
 {
   "classSessionId": "id001",
-  "locationId": "locationId001",
-  "attendanceDate" : ""
+  "locationId": "locationId001"
+  "attendanceDate": "timestamp001"
 }
 
 ### GET Barcode Record
