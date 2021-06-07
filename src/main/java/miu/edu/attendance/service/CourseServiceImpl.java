@@ -21,7 +21,7 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseRepository courseRepository;
 
-    // @Override
+    @Override
     public List<Course> getAllCourses(){
         return (List<Course>) courseRepository.findAll();
 
