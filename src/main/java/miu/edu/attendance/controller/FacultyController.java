@@ -3,11 +3,13 @@ package miu.edu.attendance.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import miu.edu.attendance.domain.Course;
+import miu.edu.attendance.domain.CourseOffering;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
 
@@ -24,5 +26,10 @@ public class FacultyController {
 	@GetMapping("/courses")
 	public List<Course> getAllCourses() {
 		return courseService.getAllCourses();
+	}
+	
+	@GetMapping("/offerings")
+	public List<CourseOffering> getAllCourseOfferings() {
+		return courseOfferingService.getAllCourseOfferings();
 	}
 }

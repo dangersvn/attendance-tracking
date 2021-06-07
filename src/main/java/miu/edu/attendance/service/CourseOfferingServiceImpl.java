@@ -51,4 +51,9 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
         return courseOfferingRepository.save(courseOffering);
     }
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferings() {
+		return (List<CourseOffering>) courseOfferingRepository.findAll();
+	}
 }

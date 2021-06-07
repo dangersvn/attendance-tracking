@@ -105,7 +105,7 @@ public class InitializeData {
             log.info("CourseOffering by faculty:");
             log.info("--------------------------------------------------------------");
             Person fPerson = personRepository.findById(facultyPerson.getId()).orElseThrow();
-            for (CourseOffering cf : fPerson.asFaculty().getCourseCourseOfferings()) {
+            for (CourseOffering cf : fPerson.asFaculty().getCourseOfferings()) {
                 log.info(cf);
             }
 
