@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,7 +30,7 @@ public class BarcodeRecordServiceImp implements BarcodeRecordService{
 // The barcode reader creates a record of each scan by saving the bar-code ID, date, timeslot
 //(morning or afternoon) and location.
 
-    @Override
+    //@Override
     public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO) {
         BarcodeRecord barcodeRecord = new BarcodeRecord();
         barcodeRecord.setClassSession(classSessionRepository.findById(barcodeRecordDTO.getClassSessionId()).get());
@@ -39,5 +40,10 @@ public class BarcodeRecordServiceImp implements BarcodeRecordService{
         return barcodeRecordRepository.save(barcodeRecord);
 
 
+    }
+
+    @Override
+    public List<BarcodeRecord> getAllByStudentId(Integer studentId) {
+        return barcodeRecordRepository.getStudentsBy(studentId);
     }
 }

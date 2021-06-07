@@ -1,11 +1,9 @@
 package miu.edu.attendance.service;
 
 import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.dto.BarcodeRecordDTO;
-import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
 public interface BarcodeRecordService {
-    public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO);
-
+    public List<BarcodeRecord> getAllByStudentId(Integer studentId);
 }
