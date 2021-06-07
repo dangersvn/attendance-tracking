@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BarcodeRecordServiceImp implements BarcodeRecordService{
+public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     @Autowired
     BarcodeRecordRepository barcodeRecordRepository;
 
