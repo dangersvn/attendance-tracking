@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface CourseRepository extends CrudRepository<Course, Integer> {
-    public List<Course> findAllByDescription(String Description);
+
 }

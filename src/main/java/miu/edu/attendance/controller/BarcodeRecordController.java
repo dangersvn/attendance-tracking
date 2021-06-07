@@ -17,10 +17,10 @@ public class BarcodeRecordController {
     @Autowired
     BarcodeRecordServiceImp barcodeRecordServiceImp;
 
-    @GetMapping
-    public String test() {
-        return "OK";
-    }
+//    @GetMapping
+//    public String test() {
+//        return "OK";
+//    }
 
     @PostMapping
     public BarcodeRecord createBarcodeRecord(@RequestBody BarcodeRecordDTO barcodeRecord){

@@ -10,6 +10,4 @@ public class BarcodeRecordDTO {
     int locationId;
     LocalDateTime attendanceDate;
 
-
-
 }

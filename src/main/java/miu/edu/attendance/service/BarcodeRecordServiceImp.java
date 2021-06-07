@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -32,8 +33,8 @@ public class BarcodeRecordServiceImp implements BarcodeRecordService{
     @Override
     public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO) {
         BarcodeRecord barcodeRecord = new BarcodeRecord();
-        barcodeRecord.setClassSession(classSessionRepository.findById(barcodeRecordDTO.getClassSessionId()).get());
-        barcodeRecord.setLocation(locationalRepository.findById(barcodeRecordDTO.getLocationId()).get());
+        barcodeRecord.setClassSession(classSessionRepository.findById(barcodeRecordDTO.getClassSessionId()).orElseThrow(() -> new EntityNotFoundException()));
+        barcodeRecord.setLocation(locationalRepository.findById(barcodeRecordDTO.getLocationId()).orElseThrow(() -> new EntityNotFoundException()));
         barcodeRecord.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
         return barcodeRecordRepository.save(barcodeRecord);
