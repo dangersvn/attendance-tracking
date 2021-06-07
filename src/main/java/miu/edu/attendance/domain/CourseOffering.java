@@ -2,15 +2,33 @@ package miu.edu.attendance.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Future;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @NoArgsConstructor @AllArgsConstructor
-@Entity
+@Entity @Data
 public class CourseOffering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +44,7 @@ public class CourseOffering {
     LocalDate endDate;
 
     @OneToMany(mappedBy = "courseOffering", cascade ={ CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
     Set<ClassSession> classSessionSet = new HashSet<>();
 
     public CourseOffering(Course course, LocalDate startDate, LocalDate endDate) {

@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class CourseOfferingServiceImpl implements CourseOfferingSerivce {
+public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     TimeSlotService timeSlotService;
@@ -48,5 +48,15 @@ public class CourseOfferingServiceImpl implements CourseOfferingSerivce {
         });
 
         return courseOfferingRepository.save(courseOffering);
+    }
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferings() {
+		return (List<CourseOffering>) courseOfferingRepository.findAll();
+	}
+
+    @Override
+    public Optional<CourseOffering> getAllCourseOfferings(int id) {
+        return courseOfferingRepository.findById(id);
     }
 }

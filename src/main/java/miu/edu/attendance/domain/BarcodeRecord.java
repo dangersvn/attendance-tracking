@@ -1,8 +1,11 @@
 package miu.edu.attendance.domain;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.*;
+@Data
+@Entity @NoArgsConstructor
 public class BarcodeRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +20,10 @@ public class BarcodeRecord {
     @ManyToOne
     @JoinColumn(name = "location_id")
     Location location;
+
+    public BarcodeRecord(ClassSession classSession, Location location) {
+        //this.timestamp = timestamp;
+        this.classSession = classSession;
+        this.location = location;
+    }
 }
