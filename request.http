@@ -49,9 +49,8 @@ POST localhost:8080/barcoderecord
 Content-Type: application/json
 
 {
-  "classSessionId": "id001",
   "locationId": "locationId001",
-  "attendanceDate": "timestamp001"
+  "barcodeId": "____BARCODEID_____"
 }
 
 ### GET Barcode Record
