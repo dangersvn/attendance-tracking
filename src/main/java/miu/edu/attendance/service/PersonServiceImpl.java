@@ -5,6 +5,7 @@ import miu.edu.attendance.dto.RegisterUserDto;
 import miu.edu.attendance.repository.PersonRepository;
 import miu.edu.attendance.repository.PersonRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,13 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     PersonRoleRepository personRoleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Person registerPerson(RegisterUserDto registerUserDto) {
         Person person = new Person(registerUserDto);
-
+        person.setPassword(passwordEncoder.encode(registerUserDto.getPassword()));
         if (registerUserDto.getPersonRole().equalsIgnoreCase(Faculty.class.getSimpleName())) {
             Faculty faculty = personRoleRepository.save(new Faculty());
             person.addRole(faculty);

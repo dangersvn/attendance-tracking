@@ -1,3 +1,25 @@
+### Login
+POST localhost:8080/authentication/login
+Content-Type: application/json
+
+{
+  "username": "admin3",
+  "password": "123"
+}
+
+### Register Student
+POST localhost:8080/authentication/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOlsiQURNSU4iXSwiZXhwIjoxNjIzMTA0NTc4LCJpYXQiOjE2MjMwODY1Nzh9.pcbkJ0_WHwkxgM2O-DyF1Y3wE2fGHTG1PDmbEJ58S2Y
+
+{
+  "username": "admin3",
+  "password": "123",
+  "firstName": "ADMIN",
+  "lastName": "MR",
+  "personRole": "ADMIN"
+}
+
 ### Register Student
 POST localhost:8080/authentication/register
 Content-Type: application/json

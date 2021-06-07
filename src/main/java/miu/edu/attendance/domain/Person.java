@@ -2,6 +2,7 @@ package miu.edu.attendance.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import miu.edu.attendance.dto.PersonRoleDto;
 import miu.edu.attendance.dto.RegisterUserDto;
@@ -21,7 +22,9 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(unique = true)
     String username;
+    @Setter
     String password;
     String firstName;
     String lastName;
