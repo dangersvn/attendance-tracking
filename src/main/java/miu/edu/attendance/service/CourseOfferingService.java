@@ -8,6 +8,6 @@ import miu.edu.attendance.domain.TimeSlot;
 import java.time.LocalDate;
 import java.util.Set;
 
-public interface CourseOfferingSerivce {
+public interface CourseOfferingService {
     CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate);
 }

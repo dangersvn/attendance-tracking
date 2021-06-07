@@ -4,7 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.RegisterUserDto;
 import miu.edu.attendance.repository.*;
-import miu.edu.attendance.service.CourseOfferingSerivce;
+import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.PersonService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +14,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Configuration
+//@Configuration
 @Log4j2
 public class InitializeData {
     @Bean
     public CommandLineRunner loadData(PersonRepository personRepository, PersonService personService, PersonRoleRepository personRoleRepository,
-                                      CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, CourseOfferingSerivce courseOfferingSerivce,
+                                      CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, CourseOfferingService courseOfferingSerivce,
                                       RegistrationRepository registrationRepository, TimeSlotRepository timeSlotRepository, StudentRepo studentRepo, LocationRepository locationRepository) {
         return (args) -> {
 

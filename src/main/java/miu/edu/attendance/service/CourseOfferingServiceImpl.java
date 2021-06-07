@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class CourseOfferingServiceImpl implements CourseOfferingSerivce {
+public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     TimeSlotService timeSlotService;
