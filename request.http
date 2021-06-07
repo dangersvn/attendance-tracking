@@ -1,3 +1,25 @@
+### Login
+POST localhost:8080/authentication/login
+Content-Type: application/json
+
+{
+  "username": "dang",
+  "password": "123"
+}
+
+### Register Student
+POST localhost:8080/authentication/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIiwiUEVSU09OTkVMIiwiQURNSU4iXSwiZXhwIjoxNjIzMTE4NjU1LCJpYXQiOjE2MjMxMDA2NTV9.n4AN3th3Nxt3zEhDCgDHwtGs1DjFViJDOOy9GXjDa4I
+
+{
+  "username": "admin6",
+  "password": "1234",
+  "firstName": "ADMIN",
+  "lastName": "MR",
+  "personRole": "ADMIN"
+}
+
 ### Register Student
 POST localhost:8080/authentication/register
 Content-Type: application/json
@@ -28,13 +50,13 @@ Content-Type: application/json
 
 {
   "classSessionId": "id001",
-  "locationId": "locationId001",
+  "locationId": "locationId001"
   "attendanceDate": "timestamp001"
 }
 
 ### GET Barcode Record
 GET localhost:8080/barcoderecord
-#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWN1bHR5Iiwicm9sZSI6WyJGYWN1bHR5Il0sImV4cCI6MTYyMjc2ODUwOCwiaWF0IjoxNjIyNzUwNTA4fQ.JIov2Jo4aBAArJtkNAHO8iFAhKSSri-xVfpCGf7ySlw
+#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50Iiwicm9sZSI6WyJTdHVkZW50Il0sImV4cCI6MTYyMjc3MDQzNywiaWF0IjoxNjIyNzUyNDM3fQ.yPzvy_1THjS-NWKqf77oC-DvL2NjNLeRTbyAONkXhkY
 
 # FACULTY eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWN1bHR5Iiwicm9sZSI6WyJGYWN1bHR5Il0sImV4cCI6MTYyMjc2ODUwOCwiaWF0IjoxNjIyNzUwNTA4fQ.JIov2Jo4aBAArJtkNAHO8iFAhKSSri-xVfpCGf7ySlw
 # STUDENT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50Iiwicm9sZSI6WyJTdHVkZW50Il0sImV4cCI6MTYyMjc2ODAwNSwiaWF0IjoxNjIyNzUwMDA1fQ.AW93cOvtNd66Q5xPHYFSqov8RNK0kHfJD0OiQpz9A8w

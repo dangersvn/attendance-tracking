@@ -1,8 +1,6 @@
 package miu.edu.attendance.service;
 
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.ClassSession;
-import miu.edu.attendance.domain.Location;
+import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.repository.BarcodeRecordRepository;
 import miu.edu.attendance.repository.ClassSessionRepository;
@@ -37,7 +35,10 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         barcodeRecord.setClassSession(classSessionRepository.findById(barcodeRecordDTO.getClassSessionId()).orElseThrow(() -> new EntityNotFoundException()));
         barcodeRecord.setLocation(locationalRepository.findById(barcodeRecordDTO.getLocationId()).orElseThrow(() -> new EntityNotFoundException()));
         barcodeRecord.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-
+//        JPAUserDetails userDetails = SecurityUtils.getUserDetail();
+//        Person person = personService.findByUsername(userDetails.getUsername());
+//        Student student = person.asStudent();
+//        student.getId();
         return barcodeRecordRepository.save(barcodeRecord);
 
 
