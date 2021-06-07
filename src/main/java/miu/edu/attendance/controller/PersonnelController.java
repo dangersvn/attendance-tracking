@@ -1,21 +1,15 @@
 package miu.edu.attendance.controller;
 
 import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.Person;
-import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.CourseServiceImpl;
-import miu.edu.attendance.service.PersonServiceImpl;
 import miu.edu.attendance.service.StudentService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Iterator;
 import java.util.List;
 
 @RestController
