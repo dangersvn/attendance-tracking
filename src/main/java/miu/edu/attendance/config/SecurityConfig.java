@@ -15,9 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     @Qualifier("JPAUserDetailsService")
     UserDetailsService userDetailsService;
@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/barcoderecord/**").hasAnyAuthority(Student.class.getSimpleName(), Personnel.class.getSimpleName())
 //                .anyRequest().authenticated()
 //                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                    .anyRequest().permitAll();
+                .anyRequest().permitAll();
 //        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         //Those two settings below is to enable access h2 database via browser

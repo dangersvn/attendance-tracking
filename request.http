@@ -17,7 +17,7 @@ Content-Type: application/json
 {
   "username": "faculty",
   "password": "123",
-  "firstName": "Paymen",
+  "firstName": "Payman",
   "lastName": "Salek",
   "personRole": "FACULTY"
 }
@@ -29,7 +29,7 @@ Content-Type: application/json
 {
   "classSessionId": "id001",
   "locationId": "locationId001",
-  "attendanceDate" : ""
+  "attendanceDate": ""
 }
 
 ### GET Barcode Record
@@ -38,3 +38,25 @@ GET localhost:8080/barcoderecord
 
 # FACULTY eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWN1bHR5Iiwicm9sZSI6WyJGYWN1bHR5Il0sImV4cCI6MTYyMjc2ODUwOCwiaWF0IjoxNjIyNzUwNTA4fQ.JIov2Jo4aBAArJtkNAHO8iFAhKSSri-xVfpCGf7ySlw
 # STUDENT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50Iiwicm9sZSI6WyJTdHVkZW50Il0sImV4cCI6MTYyMjc2ODAwNSwiaWF0IjoxNjIyNzUwMDA1fQ.AW93cOvtNd66Q5xPHYFSqov8RNK0kHfJD0OiQpz9A8w
+
+### Admin assigne Role
+### Register Faculty
+PATCH localhost:8080/admin/persons/2/roles
+Content-Type: application/json
+
+{
+  "roles": [
+    {
+      "role": "student",
+      "properties": {
+        "studentId": "612345"
+      },
+      "active": true
+    },
+    {
+      "role": "personnel",
+      "properties": null,
+      "active": true
+    }
+  ]
+}

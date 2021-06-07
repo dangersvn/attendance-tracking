@@ -1,15 +1,17 @@
 package miu.edu.attendance.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-@Getter
+@Getter @NoArgsConstructor
 @Entity
 public class Student extends PersonRole {
 
+    @Column(unique = true)
     String studentId;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -23,6 +25,10 @@ public class Student extends PersonRole {
 
     public void registering(Registration registration) {
         registrations.add(registration);
+    }
+
+    public Student(String studentId) {
+        this.studentId = studentId;
     }
 
     @Override

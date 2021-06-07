@@ -10,9 +10,9 @@ public abstract class PersonRole {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    boolean isActive;
+    boolean active = true;
 
     public String getName() {
-        return this.getClass().getSimpleName();
+        return this.getClass().getSimpleName().toUpperCase();
     }
 }
