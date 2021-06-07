@@ -3,7 +3,6 @@ package miu.edu.attendance.service;
 import miu.edu.attendance.domain.ClassSession;
 import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
-import miu.edu.attendance.domain.TimeSlot;
 import miu.edu.attendance.dto.AvailableTimeSlotDto;
 import miu.edu.attendance.repository.CourseOfferingRepository;
 import miu.edu.attendance.service.utils.DateUtils;
@@ -14,11 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
-public class CourseOfferingServiceImpl implements CourseOfferingSerivce {
+public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     TimeSlotService timeSlotService;
@@ -50,5 +48,15 @@ public class CourseOfferingServiceImpl implements CourseOfferingSerivce {
         });
 
         return courseOfferingRepository.save(courseOffering);
+    }
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferings() {
+		return (List<CourseOffering>) courseOfferingRepository.findAll();
+	}
+
+    @Override
+    public Optional<CourseOffering> getAllCourseOfferings(int id) {
+        return courseOfferingRepository.findById(id);
     }
 }

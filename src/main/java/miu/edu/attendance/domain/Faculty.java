@@ -15,9 +15,9 @@ public class Faculty extends PersonRole {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "faculty_id")
-    Set<CourseOffering> courseCourseOfferings = new HashSet<CourseOffering>();
+    Set<CourseOffering> courseOfferings = new HashSet<CourseOffering>();
 
     public void addCourseOffering(CourseOffering courseOffering) {
-        courseCourseOfferings.add(courseOffering);
+        courseOfferings.add(courseOffering);
     }
 }
