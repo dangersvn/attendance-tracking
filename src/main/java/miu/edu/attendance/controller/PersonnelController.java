@@ -2,10 +2,9 @@ package miu.edu.attendance.controller;
 
 import miu.edu.attendance.domain.BarcodeRecord;
 import miu.edu.attendance.domain.Person;
+import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.security.JwtUtil;
-import miu.edu.attendance.service.BarcodeRecordService;
-import miu.edu.attendance.service.CourseServiceImpl;
-import miu.edu.attendance.service.StudentService;
+import miu.edu.attendance.service.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,11 @@ public class PersonnelController {
     }
 
     @PostMapping("/attendance")
-    public List<BarcodeRecord> getAttendance(@RequestBody String studentId) throws JSONException {
-        JSONObject key = new JSONObject(studentId);
-        Integer stId = key.getInt("studentId");
-        return barcodeRecordService.getAllByStudentId(stId);
+    public List<BarcodeRecord> getAttendance(@RequestBody String request) throws JSONException {
+        JSONObject requestStr = new JSONObject(request);
+        Integer stId = requestStr.getInt("studentId");
+        Integer sessionId = requestStr.getInt("sessionId");
+       Student student =  studentService.getStudentById(stId);
+        return barcodeRecordService.getBarcodeRecordByStudentIdAndSessionId(stId, sessionId);
     }
 }

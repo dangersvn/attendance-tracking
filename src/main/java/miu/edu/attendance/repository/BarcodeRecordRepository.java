@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, Integer> {
 
-    @Query("select b from BarcodeRecord b, Student s where s.studentId = :studentId")
-    List<BarcodeRecord> getStudentsBy(@Param("studentId") Integer studentId);
+    @Query("select b from BarcodeRecord b, Student st where b.classSession.id = :sessionId and st.id = :studentId")
+    List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId(@Param("studentId") Integer studentId, @Param("sessionId") Integer courseId);
 }
