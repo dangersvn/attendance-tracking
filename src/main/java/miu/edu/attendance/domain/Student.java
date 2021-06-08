@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class Student extends PersonRole {
     @OneToMany
     @JoinColumn(name = "student_id")
     @OrderColumn(name = "timestamp")
-    List<BarcodeRecord> barcodeRecords;
+    List<BarcodeRecord> barcodeRecords = new ArrayList<>();
 
     public void registering(Registration registration) {
         registrations.add(registration);
@@ -29,6 +30,10 @@ public class Student extends PersonRole {
 
     public Student(String studentId) {
         this.studentId = studentId;
+    }
+
+    public void addBarcodeRecord(BarcodeRecord barcodeRecord) {
+        barcodeRecords.add(barcodeRecord);
     }
 
     @Override
