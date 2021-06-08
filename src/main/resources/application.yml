@@ -4,7 +4,7 @@ spring:
   application:
     name: attendance-tracking-system
   datasource:
-    url: jdbc:mysql://localhost:3306/attendance
+    url: jdbc:mysql://localhost:3306/attendance-3
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver

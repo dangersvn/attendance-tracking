@@ -30,9 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("JPAUserDetailsService")
     UserDetailsService userDetailsService;
-
-    @Autowired
-    JwtRequestFilter jwtRequestFilter;
+//
+//    @Autowired
+//    JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -53,14 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/authentication/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/barcoderecord").permitAll()
-                .antMatchers("/authentication/register").hasAnyAuthority(Admin.class.getSimpleName().toUpperCase())
-                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                .anyRequest().authenticated();
-        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//                .antMatchers("/authentication/login").permitAll()
+//                .antMatchers(HttpMethod.POST,"/barcoderecord").permitAll()
+//                .antMatchers("/authentication/register").hasAnyAuthority(Admin.class.getSimpleName().toUpperCase())
+//                .antMatchers("/personnel/attendance").hasAnyAuthority(Personnel.class.getSimpleName().toUpperCase())
+//                .anyRequest().authenticated()
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .anyRequest().authenticated();
+//        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable();
+
+        // select s.registration.courseOffering from Student s where s.studentId
     }
 
     @Bean
