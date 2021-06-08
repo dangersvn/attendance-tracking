@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +40,7 @@ public class ClassSession {
         this.location = location;
         this.date = date;
     }
-
+    
     @Override
     public String toString() {
         return "ClassSession{" +
