@@ -3,6 +3,7 @@ package miu.edu.attendance.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,11 +57,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         return courseOfferingRepository.save(courseOffering);
     }
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
-		return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
-	}
-
     @Override
     public Optional<CourseOffering> getAllCourseOfferings(int id) {
         return courseOfferingRepository.findById(id);
@@ -85,6 +81,17 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 	public List<CourseOffering> getAllCourseOfferings() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
+		return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
+	}
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id) {
+		List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
+		return courseOfferings.stream().filter(c->c.getCourse().getId()==course_id).collect(Collectors.toList());
 	}
 
 

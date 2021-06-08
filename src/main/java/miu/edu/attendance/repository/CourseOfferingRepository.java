@@ -24,7 +24,6 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
     List<CourseOffering> getAllCourseFuture();
     
     @Query("select f.courseOfferings from Faculty f where f.id = ?1")
-    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
-    
+    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);    
 
 }

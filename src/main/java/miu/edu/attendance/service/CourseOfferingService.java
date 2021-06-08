@@ -12,6 +12,7 @@ public interface CourseOfferingService {
     CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate, Location location);
     List<CourseOffering> getAllCourseOfferings();
     List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
+    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id);
     Optional<CourseOffering> getAllCourseOfferings(int id);
     CourseOffering getAllCourseCurrent();
     List<CourseOffering> getAllCoursePast();

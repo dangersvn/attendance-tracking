@@ -33,11 +33,10 @@ FacultyController {
 	}
 	
 	@GetMapping("/courses/{course_id}/offerings")
-	public Optional<CourseOffering> getAllCourseOfferingsById(@PathVariable int course_id) {
+	public List<CourseOffering> getAllCourseOfferingsByCourseId(@PathVariable int course_id) {
 		//get the faculty_id from access token
-		int faculty_id = 0;
-//		return courseOfferingService.getAllCourseOfferingsByFaculty(course_id, faculty_id);
-		return null;
+		int faculty_id = 3;
+		return courseOfferingService.getAllCourseOfferingsByFaculty(faculty_id, course_id);
 	}
 	
 	@GetMapping("/offerings")
