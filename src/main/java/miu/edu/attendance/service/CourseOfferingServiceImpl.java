@@ -3,8 +3,10 @@ package miu.edu.attendance.service;
 import miu.edu.attendance.domain.ClassSession;
 import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
+import miu.edu.attendance.domain.Location;
 import miu.edu.attendance.dto.AvailableTimeSlotDto;
 import miu.edu.attendance.repository.CourseOfferingRepository;
+import miu.edu.attendance.repository.LocationRepository;
 import miu.edu.attendance.service.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     CourseOfferingRepository courseOfferingRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
     
     /**
      * Create course offering with defaults class sessions: AM Session and PM Session, Monday to Friday.
@@ -32,7 +37,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
      * @return
      */
     @Override
-    public CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate) {
+    public CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate, Location location) {
 
         CourseOffering courseOffering = new CourseOffering(course, startDate, endDate);
         List<LocalDate> businessDays = DateUtils.getBusinessDaysBetween(startDate, endDate, Optional.empty());
@@ -41,8 +46,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         AvailableTimeSlotDto availableTimeSlot = timeSlotService.getAllTimeSlots();
         
         businessDays.stream().forEach(date -> {
-            ClassSession morningClassSession = new ClassSession(availableTimeSlot.getMorningSession(), date);
-            ClassSession afternoonClassSession = new ClassSession(availableTimeSlot.getAfternoonSession(), date);
+            ClassSession morningClassSession = new ClassSession(availableTimeSlot.getMorningSession(), date, location);
+            ClassSession afternoonClassSession = new ClassSession(availableTimeSlot.getAfternoonSession(), date, location);
             courseOffering.addClassSession(morningClassSession);
             courseOffering.addClassSession(afternoonClassSession);
         });

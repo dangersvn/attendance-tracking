@@ -49,8 +49,8 @@ POST localhost:8080/barcoderecord
 Content-Type: application/json
 
 {
-  "locationId": "locationId001",
-  "barcodeId": "____BARCODEID_____"
+  "locationId": "1",
+  "barcode": "dang"
 }
 
 ### GET Barcode Record

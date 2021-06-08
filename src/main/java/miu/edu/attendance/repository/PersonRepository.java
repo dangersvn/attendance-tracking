@@ -11,4 +11,5 @@ import java.util.Optional;
 @Transactional
 public interface PersonRepository extends CrudRepository<Person, Integer> {
     Optional<Person> findByUsername(String username);
+    Optional<Person> findByBarcodeId(String barcodeId);
 }

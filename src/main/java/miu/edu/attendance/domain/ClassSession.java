@@ -31,11 +31,15 @@ public class ClassSession {
 
     LocalDate date;
 
-    public ClassSession(TimeSlot timeSlot, LocalDate date) {
+    @ManyToOne
+    Location location;
+
+    public ClassSession(TimeSlot timeSlot, LocalDate date, Location location) {
         if(timeSlot == null) {
             throw new IllegalArgumentException("Required timeslot to create a ClassSession");
         }
         this.timeSlot = timeSlot;
+        this.location = location;
         this.date = date;
     }
 

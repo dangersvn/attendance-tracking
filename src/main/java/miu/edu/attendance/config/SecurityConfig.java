@@ -8,6 +8,7 @@ import miu.edu.attendance.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -53,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/authentication/login").permitAll()
+                .antMatchers(HttpMethod.POST,"/barcoderecord").permitAll()
                 .antMatchers("/authentication/register").hasAnyAuthority(Admin.class.getSimpleName().toUpperCase())
-                .antMatchers("/barcoderecord/**").hasAnyAuthority(Student.class.getSimpleName().toUpperCase(), Personnel.class.getSimpleName().toUpperCase())
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //                .anyRequest().authenticated();
