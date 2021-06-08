@@ -8,6 +8,6 @@ import java.util.List;
 public interface BarcodeRecordService {
     public List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId(Integer studentId, Integer sessionId);
     public List<BarcodeRecord> getAll();
-    BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO);
+    public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO);
 
 }
