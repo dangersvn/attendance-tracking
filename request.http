@@ -1,3 +1,25 @@
+### Login
+POST localhost:8080/authentication/login
+Content-Type: application/json
+
+{
+  "username": "dang",
+  "password": "123"
+}
+
+### Register Student
+POST localhost:8080/authentication/register
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIiwiUEVSU09OTkVMIiwiQURNSU4iXSwiZXhwIjoxNjIzMTE4NjU1LCJpYXQiOjE2MjMxMDA2NTV9.n4AN3th3Nxt3zEhDCgDHwtGs1DjFViJDOOy9GXjDa4I
+
+{
+  "username": "admin6",
+  "password": "1234",
+  "firstName": "ADMIN",
+  "lastName": "MR",
+  "personRole": "ADMIN"
+}
+
 ### Register Student
 POST localhost:8080/authentication/register
 Content-Type: application/json
@@ -17,7 +39,7 @@ Content-Type: application/json
 {
   "username": "faculty",
   "password": "123",
-  "firstName": "Paymen",
+  "firstName": "Payman",
   "lastName": "Salek",
   "personRole": "FACULTY"
 }
@@ -27,14 +49,41 @@ POST localhost:8080/barcoderecord
 Content-Type: application/json
 
 {
-  "classSessionId": "id001",
-  "locationId": "locationId001"
-  "attendanceDate": "timestamp001"
+  "locationId": "locationId001",
+  "barcodeId": "____BARCODEID_____"
 }
 
 ### GET Barcode Record
 GET localhost:8080/barcoderecord
-#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50Iiwicm9sZSI6WyJTdHVkZW50Il0sImV4cCI6MTYyMjc3MDQzNywiaWF0IjoxNjIyNzUyNDM3fQ.yPzvy_1THjS-NWKqf77oC-DvL2NjNLeRTbyAONkXhkY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzExNzAyOCwiaWF0IjoxNjIzMDk5MDI4fQ.2NLzlfjmTeVyQ6UZKYCIoX6t3JIYbVI9nM6PwQ2WcEg
 
-# FACULTY eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWN1bHR5Iiwicm9sZSI6WyJGYWN1bHR5Il0sImV4cCI6MTYyMjc2ODUwOCwiaWF0IjoxNjIyNzUwNTA4fQ.JIov2Jo4aBAArJtkNAHO8iFAhKSSri-xVfpCGf7ySlw
-# STUDENT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHVkZW50Iiwicm9sZSI6WyJTdHVkZW50Il0sImV4cCI6MTYyMjc2ODAwNSwiaWF0IjoxNjIyNzUwMDA1fQ.AW93cOvtNd66Q5xPHYFSqov8RNK0kHfJD0OiQpz9A8w
+### GET All persons
+GET localhost:8080/admin/persons/
+
+### Admin assigne Role
+### Register Faculty
+PATCH localhost:8080/admin/persons/2/roles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjQiLCJyb2xlIjpbIkFETUlOIl0sImV4cCI6MTYyMzExNzI0NSwiaWF0IjoxNjIzMDk5MjQ1fQ.dcP4300eSjRyYIgfyD3eHcKy5dfouN6m3Z0jVomdeHc
+
+{
+  "roles": [
+    {
+      "role": "student",
+      "properties": {
+        "studentId": "612345"
+      },
+      "active": false
+    },
+    {
+      "role": "personnel",
+      "properties": null,
+      "active": true
+    },
+    {
+      "role": "admin",
+      "properties": null,
+      "active": true
+    }
+  ]
+}

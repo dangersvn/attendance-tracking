@@ -1,8 +1,6 @@
 package miu.edu.attendance.service;
 
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.ClassSession;
-import miu.edu.attendance.domain.Location;
+import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.repository.BarcodeRecordRepository;
 import miu.edu.attendance.repository.ClassSessionRepository;
@@ -17,7 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BarcodeRecordServiceImp implements BarcodeRecordService{
+public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     @Autowired
     BarcodeRecordRepository barcodeRecordRepository;
 
@@ -36,7 +34,10 @@ public class BarcodeRecordServiceImp implements BarcodeRecordService{
         barcodeRecord.setClassSession(classSessionRepository.findById(barcodeRecordDTO.getClassSessionId()).get());
         barcodeRecord.setLocation(locationalRepository.findById(barcodeRecordDTO.getLocationId()).get());
         barcodeRecord.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-
+//        JPAUserDetails userDetails = SecurityUtils.getUserDetail();
+//        Person person = personService.findByUsername(userDetails.getUsername());
+//        Student student = person.asStudent();
+//        student.getId();
         return barcodeRecordRepository.save(barcodeRecord);
 
 

@@ -23,18 +23,20 @@ public class InitializeData {
                                       RegistrationRepository registrationRepository, TimeSlotRepository timeSlotRepository, StudentRepo studentRepo, LocationRepository locationRepository) {
         return (args) -> {
 
+            // create admin user
+            RegisterUserDto registerUserDto = new RegisterUserDto("admin", "123", "ADMIN", "Mr.", "ADMIN", null);
+            Person admin = personService.registerPerson(registerUserDto);
+
             // register persons
-            RegisterUserDto registerUserDto = new RegisterUserDto("dang", "123", "Dang", "Nguyen", "STUDENT");
+            registerUserDto = new RegisterUserDto("dang", "123", "Dang", "Nguyen", "STUDENT", "612345");
             Person student = personService.registerPerson(registerUserDto);
 
-            registerUserDto = new RegisterUserDto("stellavera", "123", "Stellavera ", "Kilcher", "FACULTY");
+            registerUserDto = new RegisterUserDto("stellavera", "123", "Stellavera ", "Kilcher", "FACULTY", null);
             Person facultyPerson = personService.registerPerson(registerUserDto);
 
-            registerUserDto = new RegisterUserDto("john", "123", "John", "Smith", "PERSONNEL");
+            registerUserDto = new RegisterUserDto("john", "123", "John", "Smith", "PERSONNEL", null);
             personService.registerPerson(registerUserDto);
 
-            registerUserDto = new RegisterUserDto("admin", "123", "Miller", "Smith", "ADMIN");
-            personService.registerPerson(registerUserDto);
 
             // fetch all persons
             log.info("Persons found with findAll():");
