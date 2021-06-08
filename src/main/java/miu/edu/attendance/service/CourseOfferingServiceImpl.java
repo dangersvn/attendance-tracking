@@ -1,5 +1,13 @@
 package miu.edu.attendance.service;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import miu.edu.attendance.domain.ClassSession;
 import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
@@ -8,13 +16,6 @@ import miu.edu.attendance.dto.AvailableTimeSlotDto;
 import miu.edu.attendance.repository.CourseOfferingRepository;
 import miu.edu.attendance.repository.LocationRepository;
 import miu.edu.attendance.service.utils.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -56,8 +57,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
 	@Override
-	public List<CourseOffering> getAllCourseOfferings() {
-		return (List<CourseOffering>) courseOfferingRepository.findAll();
+	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
+//		return (List<CourseOffering>) courseOfferingRepository.findAll();
 	}
 
     @Override
@@ -79,4 +80,13 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     public List<CourseOffering> getAllCourseFuture() {
         return courseOfferingRepository.getAllCourseFuture() ;
     }
+
+
+//	@Override
+//	public Optional<CourseOffering> getAllCourseOfferingsByFaculty(int course_id, int faculty_id) {
+//		return courseOfferingRepository.getAllCourseOfferingsByFaculty(int course_id, int faculty_id);
+//	}
+    
+
+
 }

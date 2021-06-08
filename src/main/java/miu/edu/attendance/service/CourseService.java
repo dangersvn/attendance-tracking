@@ -9,4 +9,5 @@ import miu.edu.attendance.dto.RegisterUserDto;
 public interface CourseService {
     Person registerPerson(RegisterUserDto registerUserDto);
     List<Course> getAllCourses();
+    List<Course> getAllCoursesByFacultyId(int faculty_id);
 }

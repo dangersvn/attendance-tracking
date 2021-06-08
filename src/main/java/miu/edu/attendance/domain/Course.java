@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
