@@ -15,7 +15,8 @@ import miu.edu.attendance.service.CourseService;
 
 @RestController
 @RequestMapping("/faculty")
-public class FacultyController {
+public class
+FacultyController {
 
 	@Autowired
 	private CourseService courseService;

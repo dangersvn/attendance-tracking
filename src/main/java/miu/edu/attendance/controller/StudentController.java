@@ -3,7 +3,6 @@ package miu.edu.attendance.controller;
 import miu.edu.attendance.domain.BarcodeRecord;
 import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
-import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.CourseOfferingService;
@@ -29,15 +28,27 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
-    @GetMapping("/courses")
-    public List<Course> getAllCourse() {
-        return courseService.getAllCourses();
-    }
 
-    @GetMapping("/offerings")
+    @GetMapping("/courses")
     public List<CourseOffering> getAllCourseOfferings() {
         return courseOfferingService.getAllCourseOfferings();
     }
+
+    @GetMapping("/courses/current")
+    public CourseOffering getAllCourseCurrent() {
+        return courseOfferingService.getAllCourseCurrent();
+    }
+
+    @GetMapping("/courses/past")
+    public List<CourseOffering> getAllCoursePast() {
+        return courseOfferingService.getAllCoursePast();
+    }
+
+    @GetMapping("/courses/future")
+    public List<CourseOffering> getAllCourseFuture() {
+        return courseOfferingService.getAllCourseFuture();
+    }
+
 
     @GetMapping("/offerings/{id}")
     public Optional<CourseOffering> getAllCourseOfferingsById(@PathVariable int id) {
@@ -50,5 +61,9 @@ public class StudentController {
         return barcodeRecordService.getBarcodeRecordByStudentIdAndSessionId(1, 1);
     }
 
+    //    @GetMapping("/offerings")
+    //    public List<Course> getAllCourse() {
+    //        return courseService.getAllCourses();
+    //    }
   
 }
