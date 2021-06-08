@@ -10,6 +10,7 @@ import miu.edu.attendance.domain.Location;
 
 public interface CourseOfferingService {
     CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate, Location location);
+    List<CourseOffering> getAllCourseOfferings();
     List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
     Optional<CourseOffering> getAllCourseOfferings(int id);
     CourseOffering getAllCourseCurrent();

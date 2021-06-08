@@ -42,7 +42,7 @@ FacultyController {
 	
 	@GetMapping("/offerings")
 	public List<CourseOffering> getAllCourseOfferings() {
-		int faculty_id = 3;
+		int faculty_id = 2;
 		return courseOfferingService.getAllCourseOfferingsByFaculty(faculty_id);
 	}
 }

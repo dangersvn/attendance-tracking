@@ -58,7 +58,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
 	@Override
 	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
-//		return (List<CourseOffering>) courseOfferingRepository.findAll();
+		return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
 	}
 
     @Override
@@ -80,6 +80,12 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     public List<CourseOffering> getAllCourseFuture() {
         return courseOfferingRepository.getAllCourseFuture() ;
     }
+
+	@Override
+	public List<CourseOffering> getAllCourseOfferings() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 //	@Override
