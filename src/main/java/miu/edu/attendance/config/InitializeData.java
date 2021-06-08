@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-//@Configuration
+@Configuration
 @Log4j2
 public class InitializeData {
     @Bean

@@ -11,9 +11,11 @@ import javax.persistence.ManyToOne;
 
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@NoArgsConstructor @Data
+@NoArgsConstructor @Getter @Setter
 @Entity
 public class ClassSession {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +37,14 @@ public class ClassSession {
         }
         this.timeSlot = timeSlot;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassSession{" +
+                "id=" + id +
+                ", timeSlot=" + timeSlot +
+                ", date=" + date +
+                '}';
     }
 }
