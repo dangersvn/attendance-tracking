@@ -33,8 +33,6 @@ public class BarcodeRecordController {
 
     @PostMapping
     public BarcodeRecord createBarcodeRecord(@RequestBody BarcodeRecordDTO barcodeRecord) {
-
-
         return barcodeRecordService.createBarcodeRecord(barcodeRecord);
     }
 

@@ -64,4 +64,19 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     public Optional<CourseOffering> getAllCourseOfferings(int id) {
         return courseOfferingRepository.findById(id);
     }
+
+    @Override
+    public CourseOffering getAllCourseCurrent() {
+        return courseOfferingRepository.getAllCourseCurrent() ;
+    }
+
+    @Override
+    public List<CourseOffering> getAllCoursePast() {
+        return courseOfferingRepository.getAllCoursePast() ;
+    }
+
+    @Override
+    public List<CourseOffering> getAllCourseFuture() {
+        return courseOfferingRepository.getAllCourseFuture() ;
+    }
 }
