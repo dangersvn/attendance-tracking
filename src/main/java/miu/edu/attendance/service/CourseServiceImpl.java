@@ -1,4 +1,5 @@
 package miu.edu.attendance.service;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,8 @@ public class CourseServiceImpl implements CourseService {
 	public List<Course> getAllCoursesByFacultyId(int faculty_id) {
 		List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
 		if(courseOfferings == null) return null;
-		return courseOfferings.stream().map(c -> c.getCourse()).distinct().collect(Collectors.toList());
+		return courseOfferings.stream().filter(c->c.getStartDate().isAfter(LocalDate.now().minusMonths(6))).map(c -> c.getCourse()).distinct().collect(Collectors.toList());
 	}
+	
 
 }

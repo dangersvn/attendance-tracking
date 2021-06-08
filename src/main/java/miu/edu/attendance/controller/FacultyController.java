@@ -41,7 +41,7 @@ FacultyController {
 	
 	@GetMapping("/offerings")
 	public List<CourseOffering> getAllCourseOfferings() {
-		int faculty_id = 2;
+		int faculty_id = 2; //get the faculty_id from the access token
 		return courseOfferingService.getAllCourseOfferingsByFaculty(faculty_id);
 	}
 }
