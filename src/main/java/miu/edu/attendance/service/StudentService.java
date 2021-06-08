@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface StudentService {
     List<Person> getStudentByKeyWord(String keyword);
+    Student getStudentById(Integer studentId);
 }

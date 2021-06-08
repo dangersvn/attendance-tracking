@@ -6,6 +6,8 @@ import miu.edu.attendance.dto.BarcodeRecordDTO;
 import java.util.List;
 
 public interface BarcodeRecordService {
-    List<BarcodeRecord> getAllByStudentId(Integer studentId);
-    BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO);
+    public List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId(Integer studentId, Integer sessionId);
+    public List<BarcodeRecord> getAll();
+    public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO);
+
 }

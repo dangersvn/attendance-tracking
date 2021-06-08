@@ -11,9 +11,11 @@ import javax.persistence.ManyToOne;
 
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@NoArgsConstructor @Data
+@NoArgsConstructor @Getter @Setter
 @Entity
 public class ClassSession {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +31,24 @@ public class ClassSession {
 
     LocalDate date;
 
-    public ClassSession(TimeSlot timeSlot, LocalDate date) {
+    @ManyToOne
+    Location location;
+
+    public ClassSession(TimeSlot timeSlot, LocalDate date, Location location) {
         if(timeSlot == null) {
             throw new IllegalArgumentException("Required timeslot to create a ClassSession");
         }
         this.timeSlot = timeSlot;
+        this.location = location;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassSession{" +
+                "id=" + id +
+                ", timeSlot=" + timeSlot +
+                ", date=" + date +
+                '}';
     }
 }

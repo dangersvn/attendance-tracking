@@ -16,7 +16,9 @@ public class StudentServiceImpl implements StudentService{
     private StudentRepository studentRepository;
     @Override
     public List<Person> getStudentByKeyWord(String keyword) {
-       // return studentRepository.findByKeyword(keyword);
         return studentRepository.findByKeyword(keyword);
+    }
+    public Student getStudentById(Integer studentId){
+        return studentRepository.getById(studentId);
     }
 }

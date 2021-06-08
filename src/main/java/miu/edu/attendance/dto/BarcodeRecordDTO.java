@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class BarcodeRecordDTO {
-   int classSessionId;
     int locationId;
-    LocalDateTime attendanceDate;
-
+    String barcode;
 }

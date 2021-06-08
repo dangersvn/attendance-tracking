@@ -1,50 +1,43 @@
 package miu.edu.attendance.controller;
 
-import java.util.List;
-
+import miu.edu.attendance.domain.BarcodeRecord;
+import miu.edu.attendance.domain.Person;
+import miu.edu.attendance.domain.Student;
+import miu.edu.attendance.security.JwtUtil;
+import miu.edu.attendance.service.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.Person;
-import miu.edu.attendance.security.JwtUtil;
-import miu.edu.attendance.service.BarcodeRecordService;
-import miu.edu.attendance.service.CourseService;
-import miu.edu.attendance.service.StudentService;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/personnel")
 public class PersonnelController {
 
-	@Autowired
-	JwtUtil jwtUtil;
+    @Autowired
+    JwtUtil jwtUtil;
 
-	@Autowired
-	CourseService courseService;
-	
-	@Autowired
-	StudentService studentService;
-	
-	@Autowired
-	BarcodeRecordService barcodeRecordService;
+    @Autowired
+    CourseServiceImpl courseServiceImpl;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    BarcodeRecordService barcodeRecordService;
 
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public List<Person> findStudent(@RequestBody String keyword) throws JSONException {
-		JSONObject key = new JSONObject(keyword);
-		String k = key.getString("keyword");
-		return studentService.getStudentByKeyWord(k);
-	}
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public List<Person> findStudent(@RequestBody String keyword) throws JSONException {
+        JSONObject key = new JSONObject(keyword);
+        String k = key.getString("keyword");
+        return studentService.getStudentByKeyWord(k);
+    }
 
-	@PostMapping("/attendance")
-	public List<BarcodeRecord> getAttendance(@RequestBody String studentId) throws JSONException {
-		JSONObject key = new JSONObject(studentId);
-		Integer stId = key.getInt("studentId");
-		return barcodeRecordService.getAllByStudentId(stId);
-	}
+    @PostMapping("/attendance")
+    public List<BarcodeRecord> getAttendance(@RequestBody String request) throws JSONException {
+        JSONObject requestStr = new JSONObject(request);
+        Integer stId = requestStr.getInt("studentId");
+        Integer sessionId = requestStr.getInt("sessionId");
+       Student student =  studentService.getStudentById(stId);
+        return barcodeRecordService.getBarcodeRecordByStudentIdAndSessionId(stId, sessionId);
+    }
 }
