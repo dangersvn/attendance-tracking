@@ -28,20 +28,29 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
+    String student_id = "612345";		//get student_id from access token
+
 
     @GetMapping("/courses")
-    public List<CourseOffering> getAllCourseOfferings() {
-        return courseOfferingService.getAllCourseOfferings();
+        public List<Course> getAllCourses() {
+        return courseService.getAllCoursesByStudentId(student_id);
     }
 
+
     @GetMapping("/courses/current")
-    public CourseOffering getAllCourseCurrent() {
-        return courseOfferingService.getAllCourseCurrent();
+    public CourseOffering getAllCoursescurrent() {
+        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student_id);
     }
 
     @GetMapping("/courses/past")
-    public List<CourseOffering> getAllCoursePast() {
-        return courseOfferingService.getAllCoursePast();
+    public List<CourseOffering> getAllCoursespast() {
+        return courseOfferingService.getAllCourseOfferingsByStudentpast(student_id);
+    }
+
+
+    @GetMapping("/allcourses")
+    public Iterable<CourseOffering> getAllCourseOfferings() {
+        return courseOfferingService.getAllCourseOfferings();
     }
 
     @GetMapping("/courses/future")
