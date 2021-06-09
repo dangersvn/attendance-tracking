@@ -1,9 +1,8 @@
 package miu.edu.attendance.controller;
 
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.Course;
-import miu.edu.attendance.domain.CourseOffering;
+import miu.edu.attendance.domain.*;
 import miu.edu.attendance.security.JwtUtil;
+import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
@@ -28,23 +27,36 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
-    String student_id = "612345";		//get student_id from access token
+    //String student_id = "612345";		//get student_id from access token local
 
 
-    @GetMapping("/courses")
-        public List<Course> getAllCourses() {
-        return courseService.getAllCoursesByStudentId(student_id);
+    @GetMapping("/assignedCourses")
+        public List<CourseOffering> getAllCoursesByStudentId() {
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
+        return courseOfferingService.getAllCourseOfferingsByStudent(student.getStudentId());
     }
 
 
-    @GetMapping("/courses/current")
-    public CourseOffering getAllCoursescurrent() {
-        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student_id);
+    @GetMapping("/assignedCourses/current")
+    public CourseOffering getAllCourseOfferingsByStudentCurrent() {
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student.getStudentId());
     }
 
-    @GetMapping("/courses/past")
-    public List<CourseOffering> getAllCoursespast() {
-        return courseOfferingService.getAllCourseOfferingsByStudentpast(student_id);
+    @GetMapping("/assignedCourses/past")
+    public List<CourseOffering> getAllCourseOfferingsByStudentpast() {
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentpast(student.getStudentId());
+    }
+
+    @GetMapping("/assignedCourses/future")
+    public List<CourseOffering> getAllCourseOfferingsByStudentfuture() {
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentfuture(student.getStudentId());
     }
 
 
@@ -53,13 +65,18 @@ public class StudentController {
         return courseOfferingService.getAllCourseOfferings();
     }
 
-    @GetMapping("/courses/future")
-    public List<CourseOffering> getAllCourseFuture() {
-        return courseOfferingService.getAllCourseFuture();
+    @GetMapping("/allcourses/past")
+    public Iterable<CourseOffering> getAllCourseOfferingspast() {
+        return courseOfferingService.getAllCourseOfferingspast();
     }
 
 
-    @GetMapping("/offerings/{id}")
+    @GetMapping("/allcourses/future")
+    public Iterable<CourseOffering> getAllCourseOfferingsfuture() {
+        return courseOfferingService.getAllCourseOfferingsfuture();
+    }
+
+    @GetMapping("/allcourses/{id}")
     public Optional<CourseOffering> getAllCourseOfferingsById(@PathVariable int id) {
         return courseOfferingService.getAllCourseOfferings(id);
     }
