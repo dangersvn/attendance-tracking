@@ -30,7 +30,7 @@ public class InitializeData {
 
             // register persons
             registerUserDto = new RegisterUserDto("dang", "123", "Dang", "Nguyen", "STUDENT", "612345");
-            Person student = personService.registerPerson(registerUserDto);
+            Person studentPerson = personService.registerPerson(registerUserDto);
 
             registerUserDto = new RegisterUserDto("stellavera", "123", "Stellavera ", "Kilcher", "FACULTY", null);
             Person facultyPerson = personService.registerPerson(registerUserDto);
@@ -116,38 +116,36 @@ public class InitializeData {
             }
 
             // assign course offering to faculty
-            Faculty f = facultyPerson.asFaculty();
-            if(f != null) {
-                f.addCourseOffering(eaThisMonth);
-                f.addCourseOffering(eaNextMonth);
-                f.addCourseOffering(waaThisMonth);
-                f.addCourseOffering(waaNextMonth);
-            }
+            Faculty f = facultyPerson.asFaculty().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Faculty.", facultyPerson.getId())));;
+            f.addCourseOffering(eaThisMonth);
+            f.addCourseOffering(eaNextMonth);
+            f.addCourseOffering(waaThisMonth);
+            f.addCourseOffering(waaNextMonth);
             personRoleRepository.save(f);
 
             // fetch all course offering
             log.info("CourseOffering by faculty:");
             log.info("--------------------------------------------------------------");
             Person fPerson = personRepository.findById(facultyPerson.getId()).orElseThrow();
-            for (CourseOffering cf : fPerson.asFaculty().getCourseOfferings()) {
+            Faculty faculty = fPerson.asFaculty().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Faculty.", facultyPerson.getId())));;
+            for (CourseOffering cf : faculty.getCourseOfferings()) {
                 log.info(cf);
             }
 
             // student register course offerings
-            Student s = student.asStudent();
-            if(s != null) {
-                Registration eaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaThisMonth);
-                s.registering(eaRegistration);
-                Registration waaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaNextMonth);
-                s.registering(waaRegistration);
-            }
+            Student s = studentPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
+            Registration eaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaThisMonth);
+            s.registering(eaRegistration);
+            Registration waaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaNextMonth);
+            s.registering(waaRegistration);
             personRoleRepository.save(s);
 
             // fetch all registrations from a student
             log.info("Registration of a student:");
             log.info("--------------------------------------------------------------");
-            Person studentPerson = personRepository.findById(student.getId()).orElseThrow();
-            for (Registration registration : studentPerson.asStudent().getRegistrations()) {
+            Person stuPerson = personRepository.findById(studentPerson.getId()).orElseThrow();
+            Student student = stuPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
+            for (Registration registration : student.getRegistrations()) {
                 log.info(registration.toString());
             }
 

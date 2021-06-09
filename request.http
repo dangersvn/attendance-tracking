@@ -50,7 +50,7 @@ Content-Type: application/json
 
 {
   "locationId": "1",
-  "barcode": "9423c2e8-7ca4-4c82-8047-d8a87640aaff"
+  "barcode": "e0b0cd6e-d88d-402c-ab5f-9f9c7f931b49"
 }
 
 ### GET Barcode Record
