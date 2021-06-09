@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -39,7 +40,7 @@ public class Person {
         password = dto.getPassword();
         firstName = dto.getFirstName();
         lastName = dto.getLastName();
-        barcodeId = dto.getUsername();
+        barcodeId = UUID.randomUUID().toString();
     }
 
     public void updateRole(PersonRoleDto personRoleDto) {
