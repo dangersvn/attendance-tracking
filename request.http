@@ -3,7 +3,7 @@ POST localhost:8080/authentication/login
 Content-Type: application/json
 
 {
-  "username": "john",
+  "username": "stellavera",
   "password": "123"
 }
 
@@ -87,3 +87,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjQiLCJyb2xlIjpbIkFET
     }
   ]
 }
+
+### Get all coures teach by a faculty
+GET localhost:8080/faculty/courses
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGF2ZXJhIiwicm9sZSI6WyJGQUNVTFRZIl0sImV4cCI6MTYyMzIyMjgzMywiaWF0IjoxNjIzMjA0ODMzfQ.Zoi6Wtix2W_Oof5AQlH0m9IUnUQJgKDDRyWv-7Mbi44
+

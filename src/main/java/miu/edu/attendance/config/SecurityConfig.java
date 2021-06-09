@@ -1,21 +1,16 @@
 package miu.edu.attendance.config;
 
 
-import miu.edu.attendance.domain.Admin;
-import miu.edu.attendance.domain.Personnel;
-import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,9 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("JPAUserDetailsService")
     UserDetailsService userDetailsService;
-//
-//    @Autowired
-//    JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -59,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/personnel/attendance").hasAnyAuthority(Personnel.class.getSimpleName().toUpperCase())
 //                .anyRequest().authenticated()
 //                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                .anyRequest().authenticated();
-//        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll();
+        http.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.csrf().disable();
 
         // select s.registration.courseOffering from Student s where s.studentId
