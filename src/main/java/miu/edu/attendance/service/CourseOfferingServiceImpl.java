@@ -68,26 +68,39 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
 
+    // Faculty
 
     @Override
-    public List<CourseOffering> getAllCourseFuture() {
-        return courseOfferingRepository.getAllCourseFuture() ;
+    public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
+    }
+
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id) {
+        List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
+        return courseOfferings.stream().filter(c->c.getCourse().getId()==course_id).collect(Collectors.toList());
     }
 
 
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
-		return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
-	}
-
-	@Override
-	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id) {
-		List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
-		return courseOfferings.stream().filter(c->c.getCourse().getId()==course_id).collect(Collectors.toList());
-	}
+    //Student
 
 
+    @Override
+    public List<CourseOffering> getAllCourseOfferingspast() {
+        return courseOfferingRepository.getAllCoursePast();
+    }
+
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsfuture() {
+        return courseOfferingRepository.getAllCourseFuture();
+    }
+
+
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudent(String student_id) {
+        return  courseOfferingRepository.getAllCourseOfferingsByStudent( student_id);
+    }
 
     @Override
     public CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id) {
@@ -99,6 +112,10 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         return courseOfferingRepository.getAllCourseOfferingsByStudentpast( student_id);
     }
 
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentfuture( student_id);
+    }
 
 
 }

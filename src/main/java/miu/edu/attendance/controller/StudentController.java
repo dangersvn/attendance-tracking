@@ -31,20 +31,25 @@ public class StudentController {
     String student_id = "612345";		//get student_id from access token
 
 
-    @GetMapping("/courses")
-        public List<Course> getAllCourses() {
-        return courseService.getAllCoursesByStudentId(student_id);
+    @GetMapping("/assignedCourses")
+        public List<CourseOffering> getAllCoursesByStudentId() {
+        return courseOfferingService.getAllCourseOfferingsByStudent(student_id);
     }
 
 
-    @GetMapping("/courses/current")
-    public CourseOffering getAllCoursescurrent() {
+    @GetMapping("/assignedCourses/current")
+    public CourseOffering getAllCourseOfferingsByStudentCurrent() {
         return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student_id);
     }
 
-    @GetMapping("/courses/past")
-    public List<CourseOffering> getAllCoursespast() {
+    @GetMapping("/assignedCourses/past")
+    public List<CourseOffering> getAllCourseOfferingsByStudentpast() {
         return courseOfferingService.getAllCourseOfferingsByStudentpast(student_id);
+    }
+
+    @GetMapping("/assignedCourses/future")
+    public List<CourseOffering> getAllCourseOfferingsByStudentfuture() {
+        return courseOfferingService.getAllCourseOfferingsByStudentfuture(student_id);
     }
 
 
@@ -53,13 +58,18 @@ public class StudentController {
         return courseOfferingService.getAllCourseOfferings();
     }
 
-    @GetMapping("/courses/future")
-    public List<CourseOffering> getAllCourseFuture() {
-        return courseOfferingService.getAllCourseFuture();
+    @GetMapping("/allcourses/past")
+    public Iterable<CourseOffering> getAllCourseOfferingspast() {
+        return courseOfferingService.getAllCourseOfferingspast();
     }
 
 
-    @GetMapping("/offerings/{id}")
+    @GetMapping("/allcourses/future")
+    public Iterable<CourseOffering> getAllCourseOfferingsfuture() {
+        return courseOfferingService.getAllCourseOfferingsfuture();
+    }
+
+    @GetMapping("/allcourses/{id}")
     public Optional<CourseOffering> getAllCourseOfferingsById(@PathVariable int id) {
         return courseOfferingService.getAllCourseOfferings(id);
     }
