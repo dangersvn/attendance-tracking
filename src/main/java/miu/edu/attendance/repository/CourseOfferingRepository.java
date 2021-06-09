@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +15,9 @@ import miu.edu.attendance.domain.CourseOffering;
 @Transactional
 public interface CourseOfferingRepository extends CrudRepository<CourseOffering, Integer> {
 
-    // For Faculty
-    @Query("select f.courseOfferings from Faculty f where f.id = ?1")
-    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
+        // For Faculty
+        @Query("select f.courseOfferings from Faculty f where f.id = ?1")
+        List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
 
 
 
@@ -24,24 +25,28 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
 
 
 
-    // For Student
+        // For Student
 
 
-    @Query("select R.courseOffering from Registration R where R.student.studentId=?1")
-    List<CourseOffering> getAllCourseOfferingsByStudent(String student_id);
+        @Query("select R.courseOffering from Registration R where R.student.studentId=?1")
+        List<CourseOffering> getAllCourseOfferingsByStudent(String student_id);
 
-    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate<current_date and C.endDate>current_date ")
-    CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id);
+        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate<current_date and C.endDate>current_date ")
+        CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id);
 
-    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.endDate < current_date ")
-    List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id);
+        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.endDate < current_date ")
+        List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id);
 
-    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate > current_date")
-    List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
+        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate > current_date")
+        List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
 
-    @Query("select C from CourseOffering C, Student st , Registration R where C.endDate < current_date " )
-    List<CourseOffering> getAllCoursePast();
+        @Query("select C from CourseOffering C, Student st , Registration R where C.endDate < current_date " )
+        List<CourseOffering> getAllCoursePast();
 
-    @Query("select C from CourseOffering C, Student st , Registration R where C.startDate > current_date " )
-    List<CourseOffering> getAllCourseFuture();
+        @Query("select C from CourseOffering C, Student st , Registration R where C.startDate > current_date " )
+        List<CourseOffering> getAllCourseFuture();
+
+        @Query("select distinct c from Registration r, CourseOffering c, Student st where st.id = :studentId")
+        List<CourseOffering> getAllCourseOffering(@Param("studentId") Integer studentId);
+
 }

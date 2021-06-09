@@ -87,6 +87,8 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         LocalDateTime timeStamp = LocalDateTime.of(classSessionDTO.getClassSession().getDate(), classSessionDTO.getClassSession().getTimeSlot().getBeginTime() );
         barcodeRecord.setTimestamp(timeStamp.toEpochSecond(ZoneOffset.UTC));
         Student student = studentService.getStudentById(classSessionDTO.getStudent().getId());
+        barcodeRecordRepository.getBarcodeRecordAttendance(classSessionDTO.getStudent().getId());
+
         barcodeRecordRepository.save(barcodeRecord);
         student.addBarcodeRecord(barcodeRecord);
         studentRepository.save(student);
