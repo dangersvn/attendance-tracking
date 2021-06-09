@@ -1,5 +1,6 @@
 package miu.edu.attendance.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ public class Student extends PersonRole {
     @Column(unique = true)
     String studentId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Registration> registrations = new HashSet<>();
 

@@ -2,10 +2,8 @@ package miu.edu.attendance.service;
 
 import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.BarcodeRecordDTO;
-import miu.edu.attendance.repository.BarcodeRecordRepository;
-import miu.edu.attendance.repository.ClassSessionRepository;
-import miu.edu.attendance.repository.LocationRepository;
-import miu.edu.attendance.repository.PersonRepository;
+import miu.edu.attendance.dto.ClassSessionDTO;
+import miu.edu.attendance.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +35,12 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
 
     @Autowired
     ClassSessionService classSessionService;
+
+    @Autowired
+    StudentService studentService;
+
+    @Autowired
+    StudentRepository studentRepository;
 
 // The barcode reader creates a record of each scan by saving the bar-code ID, date, timeslot
 //(morning or afternoon) and location.
@@ -74,5 +78,21 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
 
     public List<BarcodeRecord> getAll() {
         return barcodeRecordRepository.findAll();
+    }
+
+    public BarcodeRecord createBarcodeRecordToStudent(ClassSessionDTO classSessionDTO){
+        BarcodeRecord barcodeRecord = new BarcodeRecord();
+        barcodeRecord.setClassSession(classSessionDTO.getClassSession());
+        barcodeRecord.setLocation(classSessionDTO.getClassSession().getLocation());
+        LocalDateTime timeStamp = LocalDateTime.of(classSessionDTO.getClassSession().getDate(), classSessionDTO.getClassSession().getTimeSlot().getBeginTime() );
+        barcodeRecord.setTimestamp(timeStamp.toEpochSecond(ZoneOffset.UTC));
+        Student student = studentService.getStudentById(classSessionDTO.getStudent().getId());
+        barcodeRecordRepository.save(barcodeRecord);
+        student.addBarcodeRecord(barcodeRecord);
+        studentRepository.save(student);
+        return barcodeRecord;
+    }
+    public List<ClassSession> getBarcodeRecordAttendance(Integer studentId){
+       return barcodeRecordRepository.getBarcodeRecordAttendance(studentId);
     }
 }

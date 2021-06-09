@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -34,25 +32,26 @@ public class ClassSessionServiceImpl implements ClassSessionService {
         return classSessionRepository.getClassSessionByCourseOfferingId(courseOffId);
     }
 
-    public Map<ClassSession, String> attendanceStatus(Integer StudentId, Integer courseOffId){
+    public List<String> attendanceStatus(Integer StudentId, Integer courseOffId){
+
         List<ClassSession> classSessionList = getClassSessionByCourseOfferingId(courseOffId);
-
         List<BarcodeRecord> barcodeRecordList = barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(StudentId, courseOffId);
+        List<String> sessionList = new LinkedList<>();
 
-        Map<ClassSession, String> mapAttendanceStatus = new HashMap<ClassSession, String>();
-
-        for (ClassSession classSession: classSessionList){
-            for(BarcodeRecord barcodeRecord: barcodeRecordList){
-                if(classSession.getId() == barcodeRecord.getClassSession().getId()){
-                    mapAttendanceStatus.put(classSession, "present");
-                }else{
-                    mapAttendanceStatus.put(classSession, "absent");
+        boolean found;
+        for (ClassSession classSession : classSessionList) {
+            found = false;
+            for (BarcodeRecord barcodeRecord : barcodeRecordList) {
+                if (classSession.getId() == barcodeRecord.getClassSession().getId()) {
+                    found = true;
+                    break;
                 }
             }
+            if (found) {sessionList.add("Present -> " + classSession);
+            } else {
+                sessionList.add("Absent -> " + classSession);
+            }
         }
-        System.out.println(classSessionList);
-        System.out.println(barcodeRecordList);
-
-        return mapAttendanceStatus;
+        return sessionList;
     }
 }

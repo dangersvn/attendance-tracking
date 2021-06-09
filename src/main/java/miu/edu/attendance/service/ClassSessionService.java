@@ -9,6 +9,6 @@ import java.util.Map;
 public interface ClassSessionService {
     List<ClassSession> findByLocationAndDate(Location location, LocalDate date);
     public List<ClassSession> getClassSessionByCourseOfferingId(Integer courseOffId);
-    public Map<ClassSession, String> attendanceStatus(Integer StudentId, Integer courseOffId);
+    public List<String> attendanceStatus(Integer StudentId, Integer courseOffId);
 }
 
