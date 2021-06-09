@@ -2,6 +2,7 @@ package miu.edu.attendance.config;
 
 import lombok.extern.log4j.Log4j2;
 import miu.edu.attendance.domain.*;
+import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.dto.RegisterUserDto;
 import miu.edu.attendance.repository.*;
 import miu.edu.attendance.service.CourseOfferingService;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-//@Configuration
+@Configuration
 @Log4j2
 public class InitializeData {
     @Bean
@@ -154,7 +155,9 @@ public class InitializeData {
             // create barcode record for a student
             // given: Student_ID, Location ID
 
-
+//            BarcodeRecordDTO barcodeRecord = new BarcodeRecordDTO();
+//            barcodeRecord.setBarcode("dang");
+//            barcodeRecord.setLocationId(bar);
 //
 //            BarcodeRecord barcodeRecord = new BarcodeRecord();
 //            barcodeRecord.setClassSession(1);

@@ -72,8 +72,8 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     }
 
     @Override
-    public List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId(Integer studentId, Integer sessionId) {
-        return barcodeRecordRepository.getBarcodeRecordByStudentIdAndSessionId(studentId, sessionId);
+    public List<BarcodeRecord> getBarcodeRecordByStudentIdAndCourseOfferId(Integer studentId, Integer sessionId) {
+        return barcodeRecordRepository.getBarcodeRecordByStudentIdAndCourseOfferId(studentId, sessionId);
     }
 
     public List<BarcodeRecord> getAll() {

@@ -15,8 +15,7 @@ public class Student extends PersonRole {
     @Column(unique = true)
     String studentId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Registration> registrations = new HashSet<>();
 
     @OneToMany
@@ -25,8 +24,8 @@ public class Student extends PersonRole {
     List<BarcodeRecord> barcodeRecords = new ArrayList<>();
 
     public void registering(Registration registration) {
-        registrations.add(registration);
-    }
+        registration.setStudent(this);
+        registrations.add(registration);    }
 
     public Student(String studentId) {
         this.studentId = studentId;

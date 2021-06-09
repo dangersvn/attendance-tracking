@@ -1,12 +1,10 @@
 package miu.edu.attendance.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-@NoArgsConstructor @AllArgsConstructor @ToString
+@NoArgsConstructor @AllArgsConstructor  @Setter @Getter
 @Entity
 public class Registration {
 
@@ -18,11 +16,24 @@ public class Registration {
     @JoinColumn(name = "courseoffering_id")
     CourseOffering courseOffering;
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    Student student;
+
     public Registration(LocalDateTime date, CourseOffering courseOffering) {
         // Todo:  validate registration date
         // Todo: validate a student couldn't register multiple courses at a same block
 
         this.date = date;
         this.courseOffering = courseOffering;
+    }
+
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "id=" + id +
+                ", date=" + date +
+                ", courseOffering=" + courseOffering +
+                '}';
     }
 }

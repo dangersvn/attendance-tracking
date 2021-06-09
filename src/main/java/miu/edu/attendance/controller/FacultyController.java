@@ -3,6 +3,8 @@ package miu.edu.attendance.controller;
 import java.util.List;
 import java.util.Optional;
 
+import miu.edu.attendance.domain.Faculty;
+import miu.edu.attendance.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +30,8 @@ FacultyController {
 	
 	@GetMapping("/courses")
 	public List<Course> getAllCourses() {
-		int faculty_id = 3;		//get faculty_id from access token
-		return courseService.getAllCoursesByFacultyId(faculty_id);
+		Faculty faculty = SecurityUtils.getFaculty().orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+		return courseService.getAllCoursesByFacultyId(faculty.getId());
 	}
 	
 	@GetMapping("/courses/{course_id}/offerings")
@@ -41,7 +43,7 @@ FacultyController {
 	
 	@GetMapping("/offerings")
 	public List<CourseOffering> getAllCourseOfferings() {
-		int faculty_id = 2;
+		int faculty_id = 2; //get the faculty_id from the access token
 		return courseOfferingService.getAllCourseOfferingsByFaculty(faculty_id);
 	}
 }

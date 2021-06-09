@@ -58,7 +58,7 @@ public class StudentController {
     //implementation not finish
     @GetMapping("/report/attendance/courseoffering")
     public List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId() {
-        return barcodeRecordService.getBarcodeRecordByStudentIdAndSessionId(1, 1);
+        return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(1, 1);
     }
 
     //    @GetMapping("/offerings")
