@@ -32,8 +32,8 @@ public class StudentController {
 
 
     @GetMapping("/assignedCourses")
-        public List<Course> getAllCoursesByStudentId() {
-        return courseService.getAllCoursesByStudentId(student_id);
+        public List<CourseOffering> getAllCoursesByStudentId() {
+        return courseOfferingService.getAllCourseOfferingsByStudent(student_id);
     }
 
 
@@ -66,7 +66,7 @@ public class StudentController {
 
     @GetMapping("/allcourses/future")
     public Iterable<CourseOffering> getAllCourseOfferingsfuture() {
-        return courseOfferingService.getAllCourseOfferingspast();
+        return courseOfferingService.getAllCourseOfferingsfuture();
     }
 
     @GetMapping("/allcourses/{id}")

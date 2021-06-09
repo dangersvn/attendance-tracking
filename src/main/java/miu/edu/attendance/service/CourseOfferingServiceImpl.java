@@ -98,6 +98,11 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
 
     @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudent(String student_id) {
+        return  courseOfferingRepository.getAllCourseOfferingsByStudent( student_id);
+    }
+
+    @Override
     public CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id) {
         return courseOfferingRepository.getAllCourseOfferingsByStudentCurrent( student_id);
     }
