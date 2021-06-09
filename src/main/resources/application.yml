@@ -4,7 +4,7 @@ spring:
   application:
     name: attendance-tracking-system
   datasource:
-    url: jdbc:mysql://localhost:3306/attendance-3
+    url: jdbc:mysql://localhost:3306/attendance
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -14,7 +14,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
