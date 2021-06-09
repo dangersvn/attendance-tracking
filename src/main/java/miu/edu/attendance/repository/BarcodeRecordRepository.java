@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, Integer> {
@@ -18,4 +19,5 @@ public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, In
     @Query("select distinct c from ClassSession c, Student st, BarcodeRecord b where st.id = :studentId")
     List<ClassSession> getBarcodeRecordAttendance(@Param("studentId") Integer studentId);
 
+    Optional<BarcodeRecord> findByClassSession(ClassSession classSession);
 }

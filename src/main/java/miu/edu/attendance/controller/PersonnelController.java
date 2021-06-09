@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -30,40 +32,30 @@ public class PersonnelController {
     @Autowired
     CourseOfferingService courseOfferingService;
 
-    @RequestMapping(value = "/student/search", method = RequestMethod.POST)
-    public List<Person> findStudent(@RequestBody String keyword) throws JSONException {
-        JSONObject key = new JSONObject(keyword);
-        String k = key.getString("keyword");
-        return studentService.getStudentByKeyWord(k);
+    @GetMapping("/student/{keyword}")
+    public List<Person> searchByStudentKeyWord(@PathVariable("keyword")  String keyword){
+        return studentService.getStudentByKeyWord(keyword);
     }
 
-    @RequestMapping(value = "/student/couseroffering", method = RequestMethod.POST)
-    public List<CourseOffering> getCourseOffering(@RequestBody String request) throws JSONException {
-        JSONObject requestStr = new JSONObject(request);
-        Integer studentId = requestStr.getInt("studentId");
+    @GetMapping("/students/{student_id}/couserofferings")
+    public List<CourseOffering> getCourseOffering(@PathVariable("student_id") Integer studentId) {
         return courseOfferingService.getAllCourseOffering(studentId);
     }
 
+    @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/barcoderecords")
+    public List<BarcodeRecord> getAllBarcodeRecords(@PathVariable("courseOffering_id") Integer courseOfferId,
+                                                    @PathVariable("student_id") Integer studentId){
 
-    @PostMapping("/student/attendancerecord")
-    public List<BarcodeRecord> getAttendance(@RequestBody String request) throws JSONException {
-        JSONObject requestStr = new JSONObject(request);
-        Integer studentId = requestStr.getInt("studentId");
-        Integer courseOfferId = requestStr.getInt("courseOfferId");
-       Student student =  studentService.getStudentById(studentId);
         return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(studentId, courseOfferId);
     }
 
-    @PostMapping("/student/classsession")
-    public List<String> getClassSession(@RequestBody String request) throws JSONException {
-        JSONObject requestStr = new JSONObject(request);
-        Integer studentId = requestStr.getInt("studentId");
-        Integer courseOfferId = requestStr.getInt("courseOfferId");
-        Student student =  studentService.getStudentById(studentId);
+    @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/attendances")
+    public List<String> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
+                                                          @PathVariable("student_id") Integer studentId ) {
         return  classSessionService.attendanceStatus(studentId, courseOfferId);
     }
 
-    @PostMapping("/student/attendance/present")
+    @PostMapping("/student/barcoderecords")
     public BarcodeRecord createBarcodeRecord(@RequestBody ClassSessionDTO classSessionDTO)  {
        return barcodeRecordService.createBarcodeRecordToStudent(classSessionDTO);
     }
