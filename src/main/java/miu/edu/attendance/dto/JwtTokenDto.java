@@ -9,4 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class JwtTokenDto {
     private String accessToken;
+    private String barcodeId;
 }
