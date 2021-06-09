@@ -1,9 +1,8 @@
 package miu.edu.attendance.controller;
 
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.Course;
-import miu.edu.attendance.domain.CourseOffering;
+import miu.edu.attendance.domain.*;
 import miu.edu.attendance.security.JwtUtil;
+import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
@@ -28,28 +27,36 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
-    String student_id = "612345";		//get student_id from access token
+    //String student_id = "612345";		//get student_id from access token
 
 
     @GetMapping("/assignedCourses")
         public List<CourseOffering> getAllCoursesByStudentId() {
-        return courseOfferingService.getAllCourseOfferingsByStudent(student_id);
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+        return courseOfferingService.getAllCourseOfferingsByStudent(student.getStudentId());
     }
 
 
     @GetMapping("/assignedCourses/current")
     public CourseOffering getAllCourseOfferingsByStudentCurrent() {
-        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student_id);
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student.getStudentId());
     }
 
     @GetMapping("/assignedCourses/past")
     public List<CourseOffering> getAllCourseOfferingsByStudentpast() {
-        return courseOfferingService.getAllCourseOfferingsByStudentpast(student_id);
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentpast(student.getStudentId());
     }
 
     @GetMapping("/assignedCourses/future")
     public List<CourseOffering> getAllCourseOfferingsByStudentfuture() {
-        return courseOfferingService.getAllCourseOfferingsByStudentfuture(student_id);
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+        return courseOfferingService.getAllCourseOfferingsByStudentfuture(student.getStudentId());
     }
 
 
