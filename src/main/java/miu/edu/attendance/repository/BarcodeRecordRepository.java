@@ -15,8 +15,7 @@ public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, In
     @Query("select b from BarcodeRecord b, Student st where b.classSession.courseOffering.id = :courseOfferId and st.id = :studentId")
     List<BarcodeRecord> getBarcodeRecordByStudentIdAndCourseOfferId(@Param("studentId") Integer studentId, @Param("courseOfferId") Integer courseOfferId);
 
-    @Query("select c from ClassSession c, Student st " +
-            "join BarcodeRecord b on b.classSession.id = c.id and b.classSession.courseOffering.id = :courseOfferId " +
-            "where st.id = :studentId")
-    List<ClassSession> getAttendanceByStudentIdAndCourseOfferId(@Param("studentId") Integer studentId, @Param("courseOfferId") Integer courseOfferId);
+    @Query("select distinct c from ClassSession c, Student st, BarcodeRecord b where st.id = :studentId")
+    List<ClassSession> getBarcodeRecordAttendance(@Param("studentId") Integer studentId);
+
 }
