@@ -30,7 +30,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     LocationRepository locationRepository;
-    
+
     /**
      * Create course offering with defaults class sessions: AM Session and PM Session, Monday to Friday.
      * @param course
@@ -58,30 +58,23 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
+    public List<CourseOffering> getAllCourseOfferings() {
+        return (List<CourseOffering>) courseOfferingRepository.findAll();
+    }
+
+    @Override
     public Optional<CourseOffering> getAllCourseOfferings(int id) {
         return courseOfferingRepository.findById(id);
     }
 
-    @Override
-    public CourseOffering getAllCourseCurrent() {
-        return courseOfferingRepository.getAllCourseCurrent() ;
-    }
 
-    @Override
-    public List<CourseOffering> getAllCoursePast() {
-        return courseOfferingRepository.getAllCoursePast() ;
-    }
 
     @Override
     public List<CourseOffering> getAllCourseFuture() {
         return courseOfferingRepository.getAllCourseFuture() ;
     }
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferings() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
@@ -95,11 +88,17 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 	}
 
 
-//	@Override
-//	public Optional<CourseOffering> getAllCourseOfferingsByFaculty(int course_id, int faculty_id) {
-//		return courseOfferingRepository.getAllCourseOfferingsByFaculty(int course_id, int faculty_id);
-//	}
-    
+
+    @Override
+    public CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentCurrent( student_id);
+    }
+
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentpast( student_id);
+    }
+
 
 
 }
