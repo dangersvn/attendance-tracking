@@ -27,13 +27,13 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
-    //String student_id = "612345";		//get student_id from access token
+    //String student_id = "612345";		//get student_id from access token local
 
 
     @GetMapping("/assignedCourses")
         public List<CourseOffering> getAllCoursesByStudentId() {
         Student student = SecurityUtils.getStudent()
-                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
         return courseOfferingService.getAllCourseOfferingsByStudent(student.getStudentId());
     }
 
@@ -41,21 +41,21 @@ public class StudentController {
     @GetMapping("/assignedCourses/current")
     public CourseOffering getAllCourseOfferingsByStudentCurrent() {
         Student student = SecurityUtils.getStudent()
-                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
         return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student.getStudentId());
     }
 
     @GetMapping("/assignedCourses/past")
     public List<CourseOffering> getAllCourseOfferingsByStudentpast() {
         Student student = SecurityUtils.getStudent()
-                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
         return courseOfferingService.getAllCourseOfferingsByStudentpast(student.getStudentId());
     }
 
     @GetMapping("/assignedCourses/future")
     public List<CourseOffering> getAllCourseOfferingsByStudentfuture() {
         Student student = SecurityUtils.getStudent()
-                .orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
         return courseOfferingService.getAllCourseOfferingsByStudentfuture(student.getStudentId());
     }
 
