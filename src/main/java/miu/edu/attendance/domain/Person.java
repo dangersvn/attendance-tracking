@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -39,7 +40,7 @@ public class Person {
         password = dto.getPassword();
         firstName = dto.getFirstName();
         lastName = dto.getLastName();
-        barcodeId = dto.getUsername();
+        barcodeId = UUID.randomUUID().toString();
     }
 
     public void updateRole(PersonRoleDto personRoleDto) {
@@ -94,30 +95,30 @@ public class Person {
         roleOptional.get().setActive(false);
     }
 
-    public Student asStudent() {
+    public Optional<Student> asStudent() {
         for (PersonRole role : roles) {
             if (role.getName().equalsIgnoreCase("STUDENT") && role.active) {
-                return (Student) role;
+                return Optional.of((Student) role);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    public Faculty asFaculty() {
+    public Optional<Faculty> asFaculty() {
         for (PersonRole role : roles) {
             if (role.getName().equalsIgnoreCase("FACULTY") && role.active) {
-                return (Faculty) role;
+                return Optional.of((Faculty) role);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
-    public Personnel asPersonnel() {
+    public Optional<Personnel> asPersonnel() {
         for (PersonRole role : roles) {
             if (role.getName().equalsIgnoreCase("PERSONNEL")&& role.active) {
-                return (Personnel) role;
+                return Optional.of((Personnel) role);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }
