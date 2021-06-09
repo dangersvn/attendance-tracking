@@ -46,8 +46,7 @@ public class AuthenticationController {
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
         String token = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtTokenDto(token));
+        return ResponseEntity.ok(new JwtTokenDto(token, ((JPAUserDetails) userDetails).getBarcodeId()));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -58,6 +57,6 @@ public class AuthenticationController {
 
         String token = jwtUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtTokenDto(token));
+        return ResponseEntity.ok(new JwtTokenDto(token, userDetails.getBarcodeId()));
     }
 }

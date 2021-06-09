@@ -16,6 +16,8 @@ public class JPAUserDetails implements UserDetails {
     String lastName;
     String username;
     String password;
+    String barcodeId;
+
     Set<PersonRole> roles;
 
     public JPAUserDetails(Person person) {
@@ -23,6 +25,7 @@ public class JPAUserDetails implements UserDetails {
         this.password = person.getPassword();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
+        this.barcodeId = person.getBarcodeId();
         this.roles = person.getRoles();
     }
 

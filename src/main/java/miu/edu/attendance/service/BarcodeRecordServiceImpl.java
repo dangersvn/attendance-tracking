@@ -56,7 +56,6 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
 
         barcodeRecord.setClassSession(classSession);
         barcodeRecord.setLocation(location);
-
         barcodeRecord.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
         barcodeRecordRepository.save(barcodeRecord);

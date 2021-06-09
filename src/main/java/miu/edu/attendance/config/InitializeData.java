@@ -15,13 +15,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Configuration
+//@Configuration
 @Log4j2
 public class InitializeData {
     @Bean
     public CommandLineRunner loadData(PersonRepository personRepository, PersonService personService, PersonRoleRepository personRoleRepository,
                                       CourseRepository courseRepository, CourseOfferingRepository courseOfferingRepository, CourseOfferingService courseOfferingSerivce,
-                                      RegistrationRepository registrationRepository, TimeSlotRepository timeSlotRepository, StudentRepo studentRepo, LocationRepository locationRepository) {
+                                      RegistrationRepository registrationRepository, TimeSlotRepository timeSlotRepository, StudentRepository studentRepo, LocationRepository locationRepository) {
         return (args) -> {
 
             // create admin user
