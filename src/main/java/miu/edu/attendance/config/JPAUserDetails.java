@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,8 +26,10 @@ public class JPAUserDetails implements UserDetails {
         this.password = person.getPassword();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
-        this.barcodeId = person.getBarcodeId();
         this.roles = person.getRoles();
+        Optional<PersonRole> studentOptional = roles.stream().filter(personRole -> personRole.getName().equalsIgnoreCase("STUDENT")).findAny();
+        String barcodeId = studentOptional.isPresent() ? person.getBarcodeId() : "";
+        this.barcodeId =  barcodeId;
     }
 
     @Override
