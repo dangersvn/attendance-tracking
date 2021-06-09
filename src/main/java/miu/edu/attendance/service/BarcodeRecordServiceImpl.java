@@ -41,8 +41,10 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
 // The barcode reader creates a record of each scan by saving the bar-code ID, date, timeslot
 //(morning or afternoon) and location.
 
-    //@Override
     public BarcodeRecord createBarcodeRecord(BarcodeRecordDTO barcodeRecordDTO) {
+        Person person = personRepository.findByBarcodeId(barcodeRecordDTO.getBarcode()).orElseThrow(() -> new EntityNotFoundException(String.format("Invalid barcode=%s. Student not found", barcodeRecordDTO.getBarcode())));
+        Student student = person.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", person.getId())));
+
         BarcodeRecord barcodeRecord = new BarcodeRecord();
         Location location = locationalRepository.findById(barcodeRecordDTO.getLocationId()).orElseThrow(() -> new EntityNotFoundException(String.format("Location ID=%d does not exist", barcodeRecordDTO.getLocationId())));
         List<ClassSession> classSessions = classSessionService.findByLocationAndDate(location, LocalDate.now());
@@ -60,12 +62,7 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         barcodeRecordRepository.save(barcodeRecord);
 
 
-        Person person = personRepository.findByBarcodeId(barcodeRecordDTO.getBarcode()).orElseThrow(() -> new EntityNotFoundException(String.format("Invalid barcode=%d. Student not found", barcodeRecordDTO.getBarcode())));
-        ;
-        Student student = person.asStudent();
-        if (!student.isActive()) {
-            throw new IllegalStateException(String.format("The student with ID=%d is not active.", student.getStudentId()));
-        }
+
         student.addBarcodeRecord(barcodeRecord);
         personRepository.save(person);
         return barcodeRecord;

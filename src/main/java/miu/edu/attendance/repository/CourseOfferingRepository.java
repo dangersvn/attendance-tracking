@@ -14,16 +14,34 @@ import miu.edu.attendance.domain.CourseOffering;
 @Transactional
 public interface CourseOfferingRepository extends CrudRepository<CourseOffering, Integer> {
 
-    @Query("select C from CourseOffering C, Student st , Registration R where C.startDate < current_date and C.endDate > current_date " )
-    CourseOffering getAllCourseCurrent();
+    // For Faculty
+    @Query("select f.courseOfferings from Faculty f where f.id = ?1")
+    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
+
+
+
+
+
+
+
+    // For Student
+
+
+    @Query("select R.courseOffering from Registration R where R.student.studentId=?1")
+    List<CourseOffering> getAllCourseOfferingsByStudent(String student_id);
+
+    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate<current_date and C.endDate>current_date ")
+    CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id);
+
+    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.endDate < current_date ")
+    List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id);
+
+    @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate > current_date")
+    List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
 
     @Query("select C from CourseOffering C, Student st , Registration R where C.endDate < current_date " )
     List<CourseOffering> getAllCoursePast();
 
     @Query("select C from CourseOffering C, Student st , Registration R where C.startDate > current_date " )
     List<CourseOffering> getAllCourseFuture();
-    
-    @Query("select f.courseOfferings from Faculty f where f.id = ?1")
-    List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);    
-
 }

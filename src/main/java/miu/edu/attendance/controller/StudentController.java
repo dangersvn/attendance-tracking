@@ -28,29 +28,48 @@ public class StudentController {
     @Autowired
     BarcodeRecordService barcodeRecordService;
 
+    String student_id = "612345";		//get student_id from access token
 
-    @GetMapping("/courses")
-    public List<CourseOffering> getAllCourseOfferings() {
+
+    @GetMapping("/assignedCourses")
+        public List<Course> getAllCoursesByStudentId() {
+        return courseService.getAllCoursesByStudentId(student_id);
+    }
+
+
+    @GetMapping("/assignedCourses/current")
+    public CourseOffering getAllCourseOfferingsByStudentCurrent() {
+        return courseOfferingService.getAllCourseOfferingsByStudentCurrent(student_id);
+    }
+
+    @GetMapping("/assignedCourses/past")
+    public List<CourseOffering> getAllCourseOfferingsByStudentpast() {
+        return courseOfferingService.getAllCourseOfferingsByStudentpast(student_id);
+    }
+
+    @GetMapping("/assignedCourses/future")
+    public List<CourseOffering> getAllCourseOfferingsByStudentfuture() {
+        return courseOfferingService.getAllCourseOfferingsByStudentfuture(student_id);
+    }
+
+
+    @GetMapping("/allcourses")
+    public Iterable<CourseOffering> getAllCourseOfferings() {
         return courseOfferingService.getAllCourseOfferings();
     }
 
-    @GetMapping("/courses/current")
-    public CourseOffering getAllCourseCurrent() {
-        return courseOfferingService.getAllCourseCurrent();
-    }
-
-    @GetMapping("/courses/past")
-    public List<CourseOffering> getAllCoursePast() {
-        return courseOfferingService.getAllCoursePast();
-    }
-
-    @GetMapping("/courses/future")
-    public List<CourseOffering> getAllCourseFuture() {
-        return courseOfferingService.getAllCourseFuture();
+    @GetMapping("/allcourses/past")
+    public Iterable<CourseOffering> getAllCourseOfferingspast() {
+        return courseOfferingService.getAllCourseOfferingspast();
     }
 
 
-    @GetMapping("/offerings/{id}")
+    @GetMapping("/allcourses/future")
+    public Iterable<CourseOffering> getAllCourseOfferingsfuture() {
+        return courseOfferingService.getAllCourseOfferingspast();
+    }
+
+    @GetMapping("/allcourses/{id}")
     public Optional<CourseOffering> getAllCourseOfferingsById(@PathVariable int id) {
         return courseOfferingService.getAllCourseOfferings(id);
     }

@@ -22,7 +22,6 @@ public class BarcodeRecord {
     Location location;
 
     public BarcodeRecord(ClassSession classSession, Location location) {
-        //this.timestamp = timestamp;
         this.classSession = classSession;
         this.location = location;
     }

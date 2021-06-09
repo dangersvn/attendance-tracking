@@ -10,4 +10,6 @@ public interface CourseService {
     Person registerPerson(RegisterUserDto registerUserDto);
     List<Course> getAllCourses();
     List<Course> getAllCoursesByFacultyId(int faculty_id);
+    List<Course> getAllCoursesByStudentId(String student_id);
+
 }

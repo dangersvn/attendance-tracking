@@ -10,12 +10,16 @@ import miu.edu.attendance.domain.Location;
 
 public interface CourseOfferingService {
     CourseOffering createCourseOffering(Course course, LocalDate startDate, LocalDate endDate, Location location);
-    List<CourseOffering> getAllCourseOfferings();
     List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
     List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id);
+    CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id);
+    List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id);
+    List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
+    Iterable<CourseOffering> getAllCourseOfferings();
     Optional<CourseOffering> getAllCourseOfferings(int id);
-    CourseOffering getAllCourseCurrent();
-    List<CourseOffering> getAllCoursePast();
-    List<CourseOffering> getAllCourseFuture();
-//    Optional<CourseOffering> getAllCourseOfferingsByFaculty(int course_id, int faculty_id);
+    Iterable<CourseOffering> getAllCourseOfferingspast();
+    List<CourseOffering> getAllCourseOfferingsfuture();
+
+
+
 }

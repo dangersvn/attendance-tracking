@@ -50,7 +50,7 @@ Content-Type: application/json
 
 {
   "locationId": "1",
-  "barcode": "dang"
+  "barcode": "e0b0cd6e-d88d-402c-ab5f-9f9c7f931b49"
 }
 
 ### GET Barcode Record
@@ -92,3 +92,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjQiLCJyb2xlIjpbIkFET
 GET localhost:8080/faculty/courses
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGF2ZXJhIiwicm9sZSI6WyJGQUNVTFRZIl0sImV4cCI6MTYyMzIyMjgzMywiaWF0IjoxNjIzMjA0ODMzfQ.Zoi6Wtix2W_Oof5AQlH0m9IUnUQJgKDDRyWv-7Mbi44
 
+### attendance
+POST localhost:8080/personnel/attendancev2
+Content-Type: application/json
+
+{
+  "courseOfferId":1,
+  "studentId": 2
+}

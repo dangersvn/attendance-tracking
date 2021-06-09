@@ -30,7 +30,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Autowired
     LocationRepository locationRepository;
-    
+
     /**
      * Create course offering with defaults class sessions: AM Session and PM Session, Monday to Friday.
      * @param course
@@ -58,48 +58,59 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
+    public List<CourseOffering> getAllCourseOfferings() {
+        return (List<CourseOffering>) courseOfferingRepository.findAll();
+    }
+
+    @Override
     public Optional<CourseOffering> getAllCourseOfferings(int id) {
         return courseOfferingRepository.findById(id);
     }
 
+
+    // Faculty
+
     @Override
-    public CourseOffering getAllCourseCurrent() {
-        return courseOfferingRepository.getAllCourseCurrent() ;
+    public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
     }
 
     @Override
-    public List<CourseOffering> getAllCoursePast() {
-        return courseOfferingRepository.getAllCoursePast() ;
+    public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id) {
+        List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
+        return courseOfferings.stream().filter(c->c.getCourse().getId()==course_id).collect(Collectors.toList());
+    }
+
+
+
+    //Student
+
+
+    @Override
+    public List<CourseOffering> getAllCourseOfferingspast() {
+        return courseOfferingRepository.getAllCoursePast();
     }
 
     @Override
-    public List<CourseOffering> getAllCourseFuture() {
-        return courseOfferingRepository.getAllCourseFuture() ;
+    public List<CourseOffering> getAllCourseOfferingsfuture() {
+        return courseOfferingRepository.getAllCourseFuture();
     }
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferings() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id) {
-		return courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
-	}
+    @Override
+    public CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentCurrent( student_id);
+    }
 
-	@Override
-	public List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id, int course_id) {
-		List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByFaculty(faculty_id);
-		return courseOfferings.stream().filter(c->c.getCourse().getId()==course_id).collect(Collectors.toList());
-	}
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentpast( student_id);
+    }
 
-
-//	@Override
-//	public Optional<CourseOffering> getAllCourseOfferingsByFaculty(int course_id, int faculty_id) {
-//		return courseOfferingRepository.getAllCourseOfferingsByFaculty(int course_id, int faculty_id);
-//	}
-    
+    @Override
+    public List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id) {
+        return courseOfferingRepository.getAllCourseOfferingsByStudentfuture( student_id);
+    }
 
 
 }

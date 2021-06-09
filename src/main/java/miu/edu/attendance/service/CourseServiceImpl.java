@@ -34,6 +34,12 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public List<Course> getAllCoursesByStudentId(String student_id) {
+		List<CourseOffering> courseOfferings = courseOfferingRepository.getAllCourseOfferingsByStudent(student_id);
+		if(courseOfferings == null) return null;
+		return courseOfferings.stream().map(c -> c.getCourse()).distinct().collect(Collectors.toList());
+	}
 
 	@Override
 	public List<Course> getAllCoursesByFacultyId(int faculty_id) {
