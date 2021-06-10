@@ -1,6 +1,5 @@
 package miu.edu.attendance.repository;
 
-import miu.edu.attendance.domain.BarcodeRecord;
 import miu.edu.attendance.domain.ClassSession;
 import miu.edu.attendance.domain.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
