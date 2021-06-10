@@ -123,8 +123,6 @@ public class InitializeData {
             Faculty f = facultyPerson.asFaculty().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Faculty.", facultyPerson.getId())));;
             f.addCourseOffering(eaThisMonth);
             f.addCourseOffering(eaNextMonth);
-            f.addCourseOffering(waaThisMonth);
-            f.addCourseOffering(waaNextMonth);
             personRoleRepository.save(f);
 
             // fetch all course offering
