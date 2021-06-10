@@ -102,53 +102,25 @@ Content-Type: application/json
 }
 
 ### POST - get list of students by keyword
-POST http://localhost:8080/personnel/student/search
-Content-Type: application/json
-
-{
-  "keyword" : "Dang"
-}
+GET http://localhost:8080/personnel/student/Dang
 
 ### POST - get list of couseroffering by StudentId
-POST http://localhost:8080/personnel/student/couseroffering
-Content-Type: application/json
-
-{
-  "studentId" : "2"
-}
-
-
+GET http://localhost:8080/personnel/students/2/couserofferings
 
 ### POST - get list of barcoderecord attendance by StudentId and courseOfferingId
-POST http://localhost:8080/personnel/student/attendancerecord
-Content-Type: application/json
-Authentication: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huIiwicm9sZSI6WyJQRVJTT05ORUwiXSwiZXhwIjoxNjIzMjExNzYzLCJpYXQiOjE2MjMxOTM3NjN9.8utOCipaPPsymm6Db7bkGzrkUXwUsjdCtKeT1Q_3OzQ
-
-{
-  "studentId" : "2",
-  "courseOfferId" : "1"
-}
-
-
-
+GET http://localhost:8080/personnel/courseofferings/1/students/2/barcoderecords
 
 ### POST - get list of class sessionf and show absent and present status
-POST http://localhost:8080/personnel/student/classsession
-Content-Type: application/json
-
-{
-  "studentId" : "2",
-  "courseOfferId" : "1"
-}
+GET http://localhost:8080/personnel/courseofferings/1/students/2/attendances
 
 
 ### POST - Create a new atendance for student
-POST http://localhost:8080/personnel/student/attendance/present
+POST http://localhost:8080/personnel/student/barcoderecords
 Content-Type: application/json
 
 {
   "classSession": {
-    "id": 29,
+    "id": 30,
     "timeSlot": {
       "id": 1,
       "abbreviation": "AM",
