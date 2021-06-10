@@ -113,7 +113,7 @@ GET http://localhost:8080/personnel/students/2/couserofferings
 GET http://localhost:8080/personnel/courseofferings/1/students/2/barcoderecords
 
 ### POST - get list of class sessionf and show absent and present status
-GET http://localhost:8080/personnel/courseofferings/1/students/2/attendances
+GET http://localhost:8080/personnel/courseofferings/1/students/3/attendances
 
 ### POST - Create a new atendance for student
 POST http://localhost:8080/personnel/student/barcoderecords
