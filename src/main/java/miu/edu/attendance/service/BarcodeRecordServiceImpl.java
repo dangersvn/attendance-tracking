@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,6 +36,9 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
 
     @Autowired
     ClassSessionService classSessionService;
+
+    @Autowired
+    BarcodeRecordService barcodeRecordService;
 
     @Autowired
     StudentService studentService;
@@ -87,6 +91,12 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         LocalDateTime timeStamp = LocalDateTime.of(classSessionDTO.getClassSession().getDate(), classSessionDTO.getClassSession().getTimeSlot().getBeginTime() );
         barcodeRecord.setTimestamp(timeStamp.toEpochSecond(ZoneOffset.UTC));
         Student student = studentService.getStudentById(classSessionDTO.getStudent().getId());
+
+        Optional<BarcodeRecord> barcodeRecordOptional = barcodeRecordService.findByClassSession(classSessionDTO.getClassSession().getId());
+        if(barcodeRecordOptional.isPresent()) {
+            throw new IllegalStateException("Student is already register in this class session");
+        }
+
         barcodeRecordRepository.save(barcodeRecord);
         student.addBarcodeRecord(barcodeRecord);
         studentRepository.save(student);
@@ -94,5 +104,12 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     }
     public List<ClassSession> getBarcodeRecordAttendance(Integer studentId){
        return barcodeRecordRepository.getBarcodeRecordAttendance(studentId);
+    }
+
+    @Override
+    public Optional<BarcodeRecord> findByClassSession(Integer classSessionId) {
+        ClassSession classSession = new ClassSession();
+        classSession.setId(classSessionId);
+        return barcodeRecordRepository.findByClassSession(classSession);
     }
 }

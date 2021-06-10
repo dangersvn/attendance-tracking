@@ -1,16 +1,18 @@
 package miu.edu.attendance.controller;
 
-import miu.edu.attendance.domain.BarcodeRecord;
-import miu.edu.attendance.domain.ClassSession;
-import miu.edu.attendance.domain.Person;
-import miu.edu.attendance.domain.Student;
+import miu.edu.attendance.domain.*;
+import miu.edu.attendance.dto.BarcodeRecordDTO;
+import miu.edu.attendance.dto.ClassSessionDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.service.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/personnel")
@@ -20,37 +22,41 @@ public class PersonnelController {
     JwtUtil jwtUtil;
 
     @Autowired
-    CourseServiceImpl courseServiceImpl;
+    CourseServiceImpl courseService;
     @Autowired
     StudentService studentService;
     @Autowired
     BarcodeRecordService barcodeRecordService;
     @Autowired
     ClassSessionService classSessionService;
+    @Autowired
+    CourseOfferingService courseOfferingService;
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public List<Person> findStudent(@RequestBody String keyword) throws JSONException {
-        JSONObject key = new JSONObject(keyword);
-        String k = key.getString("keyword");
-        return studentService.getStudentByKeyWord(k);
+    @GetMapping("/student/{keyword}")
+    public List<Person> searchByStudentKeyWord(@PathVariable("keyword")  String keyword){
+        return studentService.getStudentByKeyWord(keyword);
     }
 
-    @PostMapping("/attendance")
-    public List<BarcodeRecord> getAttendance(@RequestBody String request) throws JSONException {
-        JSONObject requestStr = new JSONObject(request);
-        Integer studentId = requestStr.getInt("studentId");
-        Integer courseOfferId = requestStr.getInt("courseOfferId");
-       Student student =  studentService.getStudentById(studentId);
+    @GetMapping("/students/{student_id}/couserofferings")
+    public List<CourseOffering> getCourseOffering(@PathVariable("student_id") Integer studentId) {
+        return courseOfferingService.getAllCourseOffering(studentId);
+    }
+
+    @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/barcoderecords")
+    public List<BarcodeRecord> getAllBarcodeRecords(@PathVariable("courseOffering_id") Integer courseOfferId,
+                                                    @PathVariable("student_id") Integer studentId){
+
         return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(studentId, courseOfferId);
     }
-    @PostMapping("/classsession")
-    public List<ClassSession> getClassSession(@RequestBody String request) throws JSONException {
-        JSONObject requestStr = new JSONObject(request);
-        Integer studentId = requestStr.getInt("studentId");
-        Integer courseOfferId = requestStr.getInt("courseOfferId");
-        Student student =  studentService.getStudentById(studentId);
-       // return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(studentId, courseOfferId);
-        System.out.println(classSessionService.attendanceStatus(studentId, courseOfferId));
-        return  classSessionService.getClassSessionByCourseOfferingId(courseOfferId);
+
+    @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/attendances")
+    public List<String> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
+                                                          @PathVariable("student_id") Integer studentId ) {
+        return  classSessionService.attendanceStatus(studentId, courseOfferId);
+    }
+
+    @PostMapping("/student/barcoderecords")
+    public BarcodeRecord createBarcodeRecord(@RequestBody ClassSessionDTO classSessionDTO)  {
+       return barcodeRecordService.createBarcodeRecordToStudent(classSessionDTO);
     }
 }

@@ -91,3 +91,61 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjQiLCJyb2xlIjpbIkFET
 ### Get all coures teach by a faculty
 GET localhost:8080/faculty/courses
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdGVsbGF2ZXJhIiwicm9sZSI6WyJGQUNVTFRZIl0sImV4cCI6MTYyMzIyMjgzMywiaWF0IjoxNjIzMjA0ODMzfQ.Zoi6Wtix2W_Oof5AQlH0m9IUnUQJgKDDRyWv-7Mbi44
+
+### attendance
+POST localhost:8080/personnel/attendancev2
+Content-Type: application/json
+
+{
+  "courseOfferId":1,
+  "studentId": 2
+}
+
+### POST - get list of students by keyword
+GET http://localhost:8080/personnel/student/Dang
+
+### POST - get list of couseroffering by StudentId
+GET http://localhost:8080/personnel/students/2/couserofferings
+
+### POST - get list of barcoderecord attendance by StudentId and courseOfferingId
+GET http://localhost:8080/personnel/courseofferings/1/students/2/barcoderecords
+
+### POST - get list of class sessionf and show absent and present status
+GET http://localhost:8080/personnel/courseofferings/1/students/2/attendances
+
+
+### POST - Create a new atendance for student
+POST http://localhost:8080/personnel/student/barcoderecords
+Content-Type: application/json
+
+{
+  "classSession": {
+    "id": 30,
+    "timeSlot": {
+      "id": 1,
+      "abbreviation": "AM",
+      "beginTime": "10:00:00",
+      "endTime": "12:15:00",
+      "description": "Morning time slot"
+    },
+    "courseOffering": {
+      "id": 1,
+      "course": {
+        "id": 1,
+        "name": "EA",
+        "description": "Enterprise Architecture"
+      },
+      "startDate": "2021-06-03",
+      "endDate": "2021-06-24"
+    },
+    "date": "2021-06-16",
+    "location": {
+      "id": 1,
+      "description": "Room 45C - Verill Hall building"
+    }
+  },
+  "student": {
+    "id": "2",
+    "barcode": "Dang"
+  }
+}

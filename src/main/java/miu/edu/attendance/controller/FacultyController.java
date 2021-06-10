@@ -50,7 +50,12 @@ public class FacultyController {
 				.orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
 		return courseOfferingService.getAllCourseOfferingsByFaculty(faculty.getId());
 	}
-
+	
+	@GetMapping("/offerings/{courseOffering_id}/attendance/{student_id}")
+		public List<BarcodeRecord> getAttendanceForCourseOfferingForOneStudent(@PathVariable int courseOffering_id, @PathVariable int student_id){
+			return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(student_id, courseOffering_id);
+		}
+	
 	@GetMapping("/offerings/{courseOffering_id}/attendance")
 	public List<BarcodeRecord> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
 		Faculty faculty = SecurityUtils.getFaculty()

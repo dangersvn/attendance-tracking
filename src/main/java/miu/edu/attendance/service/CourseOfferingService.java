@@ -20,6 +20,7 @@ public interface CourseOfferingService {
     Optional<CourseOffering> getAllCourseOfferings(int id);
     Iterable<CourseOffering> getAllCourseOfferingspast();
     List<CourseOffering> getAllCourseOfferingsfuture();
+    List<CourseOffering> getAllCourseOffering(Integer studentId);
 
 
 
