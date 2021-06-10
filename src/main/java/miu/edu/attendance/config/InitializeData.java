@@ -145,11 +145,11 @@ public class InitializeData {
             personRoleRepository.save(s);
 
             // student 2 register course offerings
-            Student s2 = studentPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
+            Student s2 = studentPerson2.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson2.getId())));
             Registration eaRegistration2 = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaThisMonth);
-            s.registering(eaRegistration2);
+            s2.registering(eaRegistration2);
             Registration waaRegistration2 = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaNextMonth);
-            s.registering(waaRegistration2);
+            s2.registering(waaRegistration2);
             personRoleRepository.save(s2);
 
             // fetch all registrations from a student
