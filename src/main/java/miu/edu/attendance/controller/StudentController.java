@@ -1,9 +1,10 @@
 package miu.edu.attendance.controller;
 
 import miu.edu.attendance.domain.*;
+import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.security.SecurityUtils;
-import miu.edu.attendance.service.BarcodeRecordService;
+import miu.edu.attendance.service.ClassSessionService;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,10 @@ public class StudentController {
     CourseService courseService;
 
     @Autowired
-    private CourseOfferingService courseOfferingService;
+    CourseOfferingService courseOfferingService;
 
     @Autowired
-    BarcodeRecordService barcodeRecordService;
+    ClassSessionService classSessionService;
 
     //String student_id = "612345";		//get student_id from access token local
 
@@ -81,15 +82,12 @@ public class StudentController {
         return courseOfferingService.getAllCourseOfferings(id);
     }
 
-    //implementation not finish
-    @GetMapping("/report/attendance/courseoffering")
-    public List<BarcodeRecord> getBarcodeRecordByStudentIdAndSessionId() {
-        return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(1, 1);
+    @GetMapping("/offerings/{courseOffering_id}/attendance")
+    public List<StudentAttendanceDTO> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId) {
+        Student student = SecurityUtils.getStudent()
+                .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
+        return classSessionService.attendanceStatus(student.getId(), courseOfferId);
     }
 
-    //    @GetMapping("/offerings")
-    //    public List<Course> getAllCourse() {
-    //        return courseService.getAllCourses();
-    //    }
   
 }

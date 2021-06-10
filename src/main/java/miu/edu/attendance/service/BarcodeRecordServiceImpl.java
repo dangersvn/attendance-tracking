@@ -112,4 +112,12 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         classSession.setId(classSessionId);
         return barcodeRecordRepository.findByClassSession(classSession);
     }
+
+    @Override
+    public void deleteBarcodeRecord(Integer barcodeRecordId){
+        BarcodeRecord barcodeRecord1 = new BarcodeRecord();
+        barcodeRecord1.setId(barcodeRecordId);
+        barcodeRecordRepository.delete(barcodeRecord1);
+
+    }
 }

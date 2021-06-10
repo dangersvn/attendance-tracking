@@ -3,6 +3,7 @@ package miu.edu.attendance.controller;
 import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.dto.ClassSessionDTO;
+import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.service.*;
 import org.json.JSONException;
@@ -32,8 +33,8 @@ public class PersonnelController {
     @Autowired
     CourseOfferingService courseOfferingService;
 
-    @GetMapping("/student/{keyword}")
-    public List<Person> searchByStudentKeyWord(@PathVariable("keyword")  String keyword){
+    @GetMapping("/students/search")
+    public List<Person> searchByStudentKeyWord(@RequestParam("keyword")  String keyword){
         return studentService.getStudentByKeyWord(keyword);
     }
 
@@ -45,13 +46,12 @@ public class PersonnelController {
     @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/barcoderecords")
     public List<BarcodeRecord> getAllBarcodeRecords(@PathVariable("courseOffering_id") Integer courseOfferId,
                                                     @PathVariable("student_id") Integer studentId){
-
         return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(studentId, courseOfferId);
     }
 
     @GetMapping("/courseofferings/{courseOffering_id}/students/{student_id}/attendances")
-    public List<String> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
-                                                          @PathVariable("student_id") Integer studentId ) {
+    public List<StudentAttendanceDTO> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
+                                                                        @PathVariable("student_id") Integer studentId ) {
         return  classSessionService.attendanceStatus(studentId, courseOfferId);
     }
 
@@ -59,4 +59,10 @@ public class PersonnelController {
     public BarcodeRecord createBarcodeRecord(@RequestBody ClassSessionDTO classSessionDTO)  {
        return barcodeRecordService.createBarcodeRecordToStudent(classSessionDTO);
     }
+
+    @DeleteMapping("/student/{barcodeRecord_id}/barcoderecords")
+    public void deleteBarcodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecordId){
+        barcodeRecordService.deleteBarcodeRecord(barcodeRecordId);
+    }
+
 }

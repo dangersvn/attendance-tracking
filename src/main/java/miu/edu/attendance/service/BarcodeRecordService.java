@@ -15,5 +15,6 @@ public interface BarcodeRecordService {
     public BarcodeRecord createBarcodeRecordToStudent(ClassSessionDTO classSessionDTO);
     public List<ClassSession> getBarcodeRecordAttendance(Integer studentId);
     public Optional<BarcodeRecord> findByClassSession(Integer classSessionId);
+    public void deleteBarcodeRecord(Integer barcodeRecordId);
 
 }
