@@ -32,6 +32,10 @@ public class InitializeData {
             registerUserDto = new RegisterUserDto("dang", "123", "Dang", "Nguyen", "STUDENT", "612345");
             Person studentPerson = personService.registerPerson(registerUserDto);
 
+            // register persons
+            registerUserDto = new RegisterUserDto("sanjeevan", "123", "Sanjeevan", "Sigdel", "STUDENT", "612346");
+            Person studentPerson2 = personService.registerPerson(registerUserDto);
+
             registerUserDto = new RegisterUserDto("stellavera", "123", "Stellavera ", "Kilcher", "FACULTY", null);
             Person facultyPerson = personService.registerPerson(registerUserDto);
 
@@ -119,8 +123,6 @@ public class InitializeData {
             Faculty f = facultyPerson.asFaculty().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Faculty.", facultyPerson.getId())));;
             f.addCourseOffering(eaThisMonth);
             f.addCourseOffering(eaNextMonth);
-            f.addCourseOffering(waaThisMonth);
-            f.addCourseOffering(waaNextMonth);
             personRoleRepository.save(f);
 
             // fetch all course offering
@@ -140,8 +142,16 @@ public class InitializeData {
             s.registering(waaRegistration);
             personRoleRepository.save(s);
 
+            // student 2 register course offerings
+            Student s2 = studentPerson2.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson2.getId())));
+            Registration eaRegistration2 = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaThisMonth);
+            s2.registering(eaRegistration2);
+            Registration waaRegistration2 = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaNextMonth);
+            s2.registering(waaRegistration2);
+            personRoleRepository.save(s2);
+
             // fetch all registrations from a student
-            log.info("Registration of a student:");
+            log.info("Registration of student1:");
             log.info("--------------------------------------------------------------");
             Person stuPerson = personRepository.findById(studentPerson.getId()).orElseThrow();
             Student student = stuPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
@@ -149,6 +159,15 @@ public class InitializeData {
                 log.info(registration.toString());
             }
 
+
+            // fetch all registrations from student2
+            log.info("Registration of student2:");
+            log.info("--------------------------------------------------------------");
+            Person stuPerson2 = personRepository.findById(studentPerson2.getId()).orElseThrow();
+            Student student2 = stuPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
+            for (Registration registration : student2.getRegistrations()) {
+                log.info(registration.toString());
+            }
 
             // create barcode record for a student
             // given: Student_ID, Location ID

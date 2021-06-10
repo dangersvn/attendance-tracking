@@ -26,19 +26,19 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
         @Query("select R.courseOffering from Registration R where R.student.studentId=?1")
         List<CourseOffering> getAllCourseOfferingsByStudent(String student_id);
 
-        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate<current_date and C.endDate>current_date ")
+        @Query("select R.courseOffering from Registration R where R.student.studentId=?1 and R.courseOffering.startDate<current_date and R.courseOffering.endDate>current_date ")
         CourseOffering getAllCourseOfferingsByStudentCurrent(String student_id);
 
-        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.endDate < current_date ")
+        @Query("select R.courseOffering from Registration R where R.student.studentId=?1 and R.courseOffering.endDate < current_date ")
         List<CourseOffering> getAllCourseOfferingsByStudentpast(String student_id);
 
-        @Query("select C from CourseOffering C, Student st , Registration R where R.student.studentId=?1 and C.startDate > current_date")
+        @Query("select R.courseOffering from Registration R where R.student.studentId=?1 and R.courseOffering.startDate > current_date")
         List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
 
-        @Query("select C from CourseOffering C, Student st , Registration R where C.endDate < current_date " )
+        @Query("select distinct C from Registration R , CourseOffering C  where C.endDate< current_date " )
         List<CourseOffering> getAllCoursePast();
 
-        @Query("select C from CourseOffering C, Student st , Registration R where C.startDate > current_date " )
+        @Query("select distinct C from Registration R , CourseOffering C where C.startDate > current_date " )
         List<CourseOffering> getAllCourseFuture();
 
         @Query("select distinct c from Registration r, CourseOffering c, Student st where st.id = :studentId")
