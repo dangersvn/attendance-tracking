@@ -20,8 +20,7 @@ public class Student extends PersonRole {
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Registration> registrations = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "student_id")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @OrderColumn(name = "timestamp")
     List<BarcodeRecord> barcodeRecords = new ArrayList<>();
 
@@ -34,6 +33,7 @@ public class Student extends PersonRole {
     }
 
     public void addBarcodeRecord(BarcodeRecord barcodeRecord) {
+        barcodeRecord.setStudent(this);
         barcodeRecords.add(barcodeRecord);
     }
 

@@ -4,8 +4,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
-@Entity @NoArgsConstructor
+@Entity
+@NoArgsConstructor
 public class BarcodeRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,10 @@ public class BarcodeRecord {
     @ManyToOne
     @JoinColumn(name = "location_id")
     Location location;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    Student student;
 
     public BarcodeRecord(ClassSession classSession, Location location) {
         this.classSession = classSession;
