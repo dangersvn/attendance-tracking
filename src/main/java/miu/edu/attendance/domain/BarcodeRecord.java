@@ -1,5 +1,6 @@
 package miu.edu.attendance.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,7 @@ public class BarcodeRecord {
     @JoinColumn(name = "location_id")
     Location location;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "student_id")
     Student student;
