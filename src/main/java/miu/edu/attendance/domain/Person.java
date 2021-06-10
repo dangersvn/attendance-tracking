@@ -1,5 +1,6 @@
 package miu.edu.attendance.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,7 @@ public class Person {
     String lastName;
     String barcodeId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<PersonRole> roles = new HashSet<>();
 

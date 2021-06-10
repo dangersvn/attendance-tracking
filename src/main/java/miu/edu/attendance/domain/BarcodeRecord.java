@@ -19,7 +19,6 @@ public class BarcodeRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-
     long timestamp;
 
     @ManyToOne

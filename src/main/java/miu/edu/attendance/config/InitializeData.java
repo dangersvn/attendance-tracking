@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-//@Configuration
+@Configuration
 @Log4j2
 public class InitializeData {
     @Bean
@@ -73,7 +73,7 @@ public class InitializeData {
             }
 
             // create Timeslot
-            TimeSlot amTimeSlot = new TimeSlot("AM", LocalTime.of(10,0), LocalTime.of(12,15), "Morning time slot");
+            TimeSlot amTimeSlot = new TimeSlot("AM", LocalTime.of(10,22), LocalTime.of(12,15), "Morning time slot");
             TimeSlot pmTimeSlot = new TimeSlot("PM", LocalTime.of(13,30), LocalTime.of(17,30), "Afternoon time slot");
             timeSlotRepository.save(amTimeSlot);
             timeSlotRepository.save(pmTimeSlot);
@@ -111,7 +111,7 @@ public class InitializeData {
             CourseOffering eaNextMonth = courseOfferingSerivce.createCourseOffering(ea, startDate.plusMonths(1), startDate.plusMonths(1).plusDays(22), location2);
             CourseOffering waaThisMonth = courseOfferingSerivce.createCourseOffering(waa, startDate, startDate.plusDays(21), location3);
             CourseOffering waaNextMonth = courseOfferingSerivce.createCourseOffering(waa, startDate.plusMonths(1), startDate.plusMonths(1).plusDays(22), location4);
-
+            CourseOffering mwaLastMonth = courseOfferingSerivce.createCourseOffering(mwa, startDate.minusMonths(1), startDate.minusMonths(1).plusDays(22), location4);
             // fetch all course offering
             log.info("CourseOffering found with findAll():");
             log.info("--------------------------------------------------------------");
@@ -123,6 +123,8 @@ public class InitializeData {
             Faculty f = facultyPerson.asFaculty().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Faculty.", facultyPerson.getId())));;
             f.addCourseOffering(eaThisMonth);
             f.addCourseOffering(eaNextMonth);
+            f.addCourseOffering(waaThisMonth);
+            f.addCourseOffering(waaNextMonth);
             personRoleRepository.save(f);
 
             // fetch all course offering
@@ -136,6 +138,9 @@ public class InitializeData {
 
             // student register course offerings
             Student s = studentPerson.asStudent().orElseThrow(() -> new IllegalStateException(String.format("The person with ID=%d is not a Student.", studentPerson.getId())));
+            Registration mwaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), mwaLastMonth);
+            s.registering(mwaRegistration);
+
             Registration eaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), eaThisMonth);
             s.registering(eaRegistration);
             Registration waaRegistration = new Registration(LocalDateTime.of(2021, 3, 1, 12, 0), waaNextMonth);

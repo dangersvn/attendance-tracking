@@ -10,10 +10,10 @@ Content-Type: application/json
 ### Register Student
 POST localhost:8080/authentication/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIiwiUEVSU09OTkVMIiwiQURNSU4iXSwiZXhwIjoxNjIzMTE4NjU1LCJpYXQiOjE2MjMxMDA2NTV9.n4AN3th3Nxt3zEhDCgDHwtGs1DjFViJDOOy9GXjDa4I
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzMxMjI3MSwiaWF0IjoxNjIzMjk0MjcxfQ.mKTBi5K7vc51-CycZxQ-haOIVcpp_6dLCluYD4Kb7cs
 
 {
-  "username": "admin6",
+  "username": "admin9",
   "password": "1234",
   "firstName": "ADMIN",
   "lastName": "MR",
@@ -35,6 +35,7 @@ Content-Type: application/json
 ### Register Faculty
 POST localhost:8080/authentication/register
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzMxMjI3MSwiaWF0IjoxNjIzMjk0MjcxfQ.mKTBi5K7vc51-CycZxQ-haOIVcpp_6dLCluYD4Kb7cs
 
 {
   "username": "faculty",
@@ -46,11 +47,12 @@ Content-Type: application/json
 
 ### POST Create barcode record
 POST localhost:8080/barcoderecord
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzM1OTg2NSwiaWF0IjoxNjIzMzQxODY1fQ.WD2scZuZgKknAzJJ8CL20ZrbJQT3FTIQiDOnlmtil5s
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzI5OTczOCwiaWF0IjoxNjIzMjgxNzM4fQ.QWpC5FaDTNxcTB3EBtD0hKQ4X4iRV3vdkJ8lJMtoQpk
+
 {
   "locationId": "1",
-  "barcode": "528ebdef-bf7e-4367-a17e-82b4259e478b"
+  "barcode": "71107ae5-5646-4830-9cee-a54978cc2b7d"
 }
 
 ### GET Barcode Record
@@ -64,7 +66,7 @@ GET localhost:8080/admin/persons/
 ### Register Faculty
 PATCH localhost:8080/admin/persons/2/roles
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjQiLCJyb2xlIjpbIkFETUlOIl0sImV4cCI6MTYyMzExNzI0NSwiaWF0IjoxNjIzMDk5MjQ1fQ.dcP4300eSjRyYIgfyD3eHcKy5dfouN6m3Z0jVomdeHc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOlsiQURNSU4iXSwiZXhwIjoxNjIzMzQ3OTk0LCJpYXQiOjE2MjMzMjk5OTR9.MZp74YDScrvqVK20hLUvB-U60LgW0VNR6QPYBnmOp5k
 
 {
   "roles": [
@@ -111,7 +113,7 @@ GET http://localhost:8080/personnel/students/2/couserofferings
 GET http://localhost:8080/personnel/courseofferings/1/students/2/barcoderecords
 
 ### POST - get list of class sessionf and show absent and present status
-GET http://localhost:8080/personnel/courseofferings/1/students/2/attendances
+GET http://localhost:8080/personnel/courseofferings/1/students/3/attendances
 
 ### POST - Create a new atendance for student
 POST http://localhost:8080/personnel/student/barcoderecords
@@ -149,4 +151,4 @@ Content-Type: application/json
   }
 }
 ### Delete - Delete a barcodeRecord so student is not present in the ClassSession
-DELETE http://localhost:8080/personnel/student/7/barcoderecords
+DELETE http://localhost:8080/personnel/student/4/barcoderecords

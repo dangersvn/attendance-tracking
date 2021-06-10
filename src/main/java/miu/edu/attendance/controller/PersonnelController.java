@@ -4,7 +4,9 @@ import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.dto.ClassSessionDTO;
 import miu.edu.attendance.dto.StudentAttendanceDTO;
+import miu.edu.attendance.dto.StudentInfoDTO;
 import miu.edu.attendance.security.JwtUtil;
+import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ public class PersonnelController {
     CourseOfferingService courseOfferingService;
 
     @GetMapping("/students/search")
-    public List<Person> searchByStudentKeyWord(@RequestParam("keyword")  String keyword){
+    public List<StudentInfoDTO> searchByStudentKeyWord(@RequestParam("keyword")  String keyword){
         return studentService.getStudentByKeyWord(keyword);
     }
 
@@ -59,9 +61,14 @@ public class PersonnelController {
        return barcodeRecordService.createBarcodeRecordToStudent(classSessionDTO);
     }
 
+//    @DeleteMapping("/student/{barcodeRecord_id}/barcoderecords")
+//    public void deleteBarcodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecordId){
+//        barcodeRecordService.deleteBarcodeRecord(barcodeRecordId);
+//    }
+
     @DeleteMapping("/student/{barcodeRecord_id}/barcoderecords")
-    public void deleteBarcodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecordId){
-        barcodeRecordService.deleteBarcodeRecord(barcodeRecordId);
+    public void deleteBacodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecord ){
+        barcodeRecordService.deleteBarcodeRecord(barcodeRecord);
     }
 
 }

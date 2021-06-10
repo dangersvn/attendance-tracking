@@ -8,7 +8,7 @@ import miu.edu.attendance.dto.BarcodeRecordDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
-import miu.edu.attendance.service.ClassSessionService;
+//import miu.edu.attendance.service.ClassSessionService;
 import miu.edu.attendance.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ public class BarcodeRecordController {
 
     @Autowired
     BarcodeRecordService barcodeRecordService;
-
-    @Autowired
-    PersonService personService;
+//
+//    @Autowired
+//    PersonService personService;
 
     @GetMapping
     public String test() {

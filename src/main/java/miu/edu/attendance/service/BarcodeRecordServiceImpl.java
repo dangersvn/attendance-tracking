@@ -66,9 +66,11 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         barcodeRecord.setLocation(location);
         barcodeRecord.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 
+        Optional<BarcodeRecord> barcodeRecordStudentOptional = barcodeRecordService.findByClassSessionAndStudent(classSession.getId(), student.getId());
+        if(barcodeRecordStudentOptional.isPresent()) {
+            throw new IllegalStateException("your attendance is already recorded for this session");
+        }
         barcodeRecordRepository.save(barcodeRecord);
-
-
 
         student.addBarcodeRecord(barcodeRecord);
         personRepository.save(person);
@@ -92,7 +94,7 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
         barcodeRecord.setTimestamp(timeStamp.toEpochSecond(ZoneOffset.UTC));
         Student student = studentService.getStudentById(classSessionDTO.getStudent().getId());
 
-        Optional<BarcodeRecord> barcodeRecordOptional = barcodeRecordService.findByClassSession(classSessionDTO.getClassSession().getId());
+        Optional<BarcodeRecord> barcodeRecordOptional = barcodeRecordService.findByClassSessionAndStudent(classSessionDTO.getClassSession().getId(), student.getId());
         if(barcodeRecordOptional.isPresent()) {
             throw new IllegalStateException("Student is already register in this class session");
         }
@@ -107,10 +109,12 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     }
 
     @Override
-    public Optional<BarcodeRecord> findByClassSession(Integer classSessionId) {
+    public Optional<BarcodeRecord> findByClassSessionAndStudent(Integer classSessionId, Integer studentId) {
         ClassSession classSession = new ClassSession();
         classSession.setId(classSessionId);
-        return barcodeRecordRepository.findByClassSession(classSession);
+        Student student = new Student();
+        student.setId(studentId);
+        return barcodeRecordRepository.findByClassSessionAndStudent(classSession, student);
     }
 
     @Override
