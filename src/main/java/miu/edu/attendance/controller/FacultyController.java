@@ -13,6 +13,8 @@ import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
 import miu.edu.attendance.domain.Faculty;
 import miu.edu.attendance.domain.Student;
+import miu.edu.attendance.dto.CourseAttendanceDto;
+import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.ClassSessionService;
@@ -61,19 +63,23 @@ public class FacultyController {
 	}
 
 	@GetMapping("/offerings/{courseOffering_id}/attendance/{student_id}")
-	public List<String> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
+	public List<StudentAttendanceDTO> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId,
 			@PathVariable("student_id") Integer studentId) {
 		//control access to faculty only
 		return classSessionService.attendanceStatus(studentId, courseOfferId);
 	}
 
 	@GetMapping("/offerings/{courseOffering_id}/attendance")
-	public List<List<String>> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
-		List<List<String>> attendanceDetailForCourseOffering = new ArrayList<>();
+	public List<List<CourseAttendanceDTO>> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
+		List<CourseAttendanceDto> attendanceDetailForCourseOffering = new ArrayList<>();
 		List<Student> students = studentService.getStudentsByCourseOffering(courseOffering_id);
+		CourseAttendanceDto dto;
 		for(Student s: students) {
-			List<String> attendanceStatusForOneStudent = classSessionService.attendanceStatus(Integer.parseInt(s.getStudentId()), courseOffering_id);
-			attendanceDetailForCourseOffering.add(attendanceStatusForOneStudent);
+			List<StudentAttendanceDTO> attendanceStatusForOneStudent = classSessionService.attendanceStatus(s.getId(), courseOffering_id);
+			long presentCount = attendanceStatusForOneStudent.stream().filter(a->a.getStatus().equals("Present")).count();
+			long totalCount = attendanceStatusForOneStudent.size();
+			dto = new CourseAttendanceDto(s.person.getFirstName(), s.person.getLastName(), presentCount, totalCount);
+			attendanceDetailForCourseOffering.add(dto);
 		}
 		return attendanceDetailForCourseOffering;
 	}
