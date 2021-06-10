@@ -20,11 +20,6 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
         List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
 
 
-
-
-
-
-
         // For Student
 
 
