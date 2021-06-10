@@ -31,8 +31,7 @@ public class Person {
     String lastName;
     String barcodeId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "person_id")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     Set<PersonRole> roles = new HashSet<>();
 
     public Person(RegisterUserDto dto) {
@@ -84,6 +83,7 @@ public class Person {
         if (roleOptional.isPresent()) {
             throw new IllegalArgumentException(String.format("Role name=%s already assigned to the personId=%d", role.getName(), id));
         }
+        role.setPerson(this);
         roles.add(role);
     }
 
