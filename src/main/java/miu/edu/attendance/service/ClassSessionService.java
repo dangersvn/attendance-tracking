@@ -10,5 +10,6 @@ public interface ClassSessionService {
     List<ClassSession> findByLocationAndDate(Location location, LocalDate date);
     public List<ClassSession> getClassSessionByCourseOfferingId(Integer courseOffId);
     public List<String> attendanceStatus(Integer StudentId, Integer courseOffId);
+
 }
 
