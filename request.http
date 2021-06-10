@@ -3,7 +3,7 @@ POST localhost:8080/authentication/login
 Content-Type: application/json
 
 {
-  "username": "stellavera",
+  "username": "dang",
   "password": "123"
 }
 
@@ -47,10 +47,10 @@ Content-Type: application/json
 ### POST Create barcode record
 POST localhost:8080/barcoderecord
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYW5nIiwicm9sZSI6WyJTVFVERU5UIl0sImV4cCI6MTYyMzI5OTczOCwiaWF0IjoxNjIzMjgxNzM4fQ.QWpC5FaDTNxcTB3EBtD0hKQ4X4iRV3vdkJ8lJMtoQpk
 {
   "locationId": "1",
-  "barcode": "e0b0cd6e-d88d-402c-ab5f-9f9c7f931b49"
+  "barcode": "528ebdef-bf7e-4367-a17e-82b4259e478b"
 }
 
 ### GET Barcode Record
@@ -102,7 +102,7 @@ Content-Type: application/json
 }
 
 ### POST - get list of students by keyword
-GET http://localhost:8080/personnel/student/Dang
+GET http://localhost:8080/personnel/students/search?keyword=Dang
 
 ### POST - get list of couseroffering by StudentId
 GET http://localhost:8080/personnel/students/2/couserofferings
@@ -113,14 +113,13 @@ GET http://localhost:8080/personnel/courseofferings/1/students/2/barcoderecords
 ### POST - get list of class sessionf and show absent and present status
 GET http://localhost:8080/personnel/courseofferings/1/students/2/attendances
 
-
 ### POST - Create a new atendance for student
 POST http://localhost:8080/personnel/student/barcoderecords
 Content-Type: application/json
 
 {
   "classSession": {
-    "id": 30,
+    "id": 10,
     "timeSlot": {
       "id": 1,
       "abbreviation": "AM",
@@ -149,3 +148,5 @@ Content-Type: application/json
     "barcode": "Dang"
   }
 }
+### Delete - Delete a barcodeRecord so student is not present in the ClassSession
+DELETE http://localhost:8080/personnel/student/7/barcoderecords

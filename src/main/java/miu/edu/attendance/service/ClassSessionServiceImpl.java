@@ -3,6 +3,7 @@ package miu.edu.attendance.service;
 import miu.edu.attendance.domain.BarcodeRecord;
 import miu.edu.attendance.domain.ClassSession;
 import miu.edu.attendance.domain.Location;
+import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.repository.ClassSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,11 @@ public class ClassSessionServiceImpl implements ClassSessionService {
         return classSessionRepository.getClassSessionByCourseOfferingId(courseOffId);
     }
 
-    public List<String> attendanceStatus(Integer StudentId, Integer courseOffId){
+    public List<StudentAttendanceDTO> attendanceStatus(Integer StudentId, Integer courseOffId){
 
         List<ClassSession> classSessionList = getClassSessionByCourseOfferingId(courseOffId);
         List<BarcodeRecord> barcodeRecordList = barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(StudentId, courseOffId);
-        List<String> sessionList = new LinkedList<>();
+        List<StudentAttendanceDTO> sessionList = new LinkedList<>();
 
         boolean found;
         for (ClassSession classSession : classSessionList) {
@@ -47,9 +48,14 @@ public class ClassSessionServiceImpl implements ClassSessionService {
                     break;
                 }
             }
-            if (found) {sessionList.add("Present -> " + classSession);
+            if (found) {
+                sessionList.add(new StudentAttendanceDTO(classSession.getDate(),
+                        classSession.getTimeSlot().getBeginTime(), classSession.getTimeSlot().getEndTime(),
+                        "Present", classSession.getTimeSlot().getAbbreviation()));
             } else {
-                sessionList.add("Absent -> " + classSession);
+                sessionList.add(new StudentAttendanceDTO(classSession.getDate(),
+                        classSession.getTimeSlot().getBeginTime(), classSession.getTimeSlot().getEndTime(),
+                        "Absent", classSession.getTimeSlot().getAbbreviation()));
             }
         }
         return sessionList;
