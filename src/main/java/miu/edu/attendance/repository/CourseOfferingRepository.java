@@ -19,6 +19,11 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
         @Query("select f.courseOfferings from Faculty f where f.id = ?1")
         List<CourseOffering> getAllCourseOfferingsByFaculty(int faculty_id);
 
+        // For Personal
+
+        @Query("select distinct c from Registration r, CourseOffering c, Student st where st.id = :studentId")
+        List<CourseOffering> getAllCourseOffering(@Param("studentId") Integer studentId);
+
 
         // For Student
 
@@ -35,13 +40,12 @@ public interface CourseOfferingRepository extends CrudRepository<CourseOffering,
         @Query("select R.courseOffering from Registration R where R.student.studentId=?1 and R.courseOffering.startDate > current_date")
         List<CourseOffering> getAllCourseOfferingsByStudentfuture(String student_id);
 
-        @Query("select distinct C from Registration R , CourseOffering C  where C.endDate< current_date " )
+        @Query("select distinct C from CourseOffering C  where C.endDate< current_date " )
         List<CourseOffering> getAllCoursePast();
 
-        @Query("select distinct C from Registration R , CourseOffering C where C.startDate > current_date " )
+        @Query("select distinct C from CourseOffering C where C.startDate > current_date " )
         List<CourseOffering> getAllCourseFuture();
 
-        @Query("select distinct c from Registration r, CourseOffering c, Student st where st.id = :studentId")
-        List<CourseOffering> getAllCourseOffering(@Param("studentId") Integer studentId);
+
 
 }
