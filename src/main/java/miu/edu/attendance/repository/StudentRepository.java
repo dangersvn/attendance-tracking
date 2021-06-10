@@ -19,5 +19,7 @@ public  interface StudentRepository extends JpaRepository<Student, Integer> {
     )
     List<Person> findByKeyword(@Param("keyword") String keyword);
 
+    @Query("select r.student from Registration r where r.courseOffering.id = :courseOffering_id")
+    List<Student> getStudentsByCourseOffering(@Param("courseOffering_id") int courseOffering_id);
 
 }

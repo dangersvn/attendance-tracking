@@ -21,4 +21,8 @@ public class StudentServiceImpl implements StudentService{
     public Student getStudentById(Integer studentId){
         return studentRepository.getById(studentId);
     }
+	@Override
+	public List<Student> getStudentsByCourseOffering(int courseOffering_id) {
+		return studentRepository.getStudentsByCourseOffering(courseOffering_id);
+	}
 }

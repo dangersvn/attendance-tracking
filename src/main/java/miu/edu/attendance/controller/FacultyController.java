@@ -12,10 +12,12 @@ import miu.edu.attendance.domain.BarcodeRecord;
 import miu.edu.attendance.domain.Course;
 import miu.edu.attendance.domain.CourseOffering;
 import miu.edu.attendance.domain.Faculty;
+import miu.edu.attendance.domain.Student;
 import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
+import miu.edu.attendance.service.StudentService;
 
 @RestController
 @RequestMapping("/faculty")
@@ -29,6 +31,9 @@ public class FacultyController {
 	
 	@Autowired
 	private BarcodeRecordService barcodeRecordService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	@GetMapping("/courses")
 	public List<Course> getAllCourses() {
@@ -57,11 +62,7 @@ public class FacultyController {
 		}
 	
 	@GetMapping("/offerings/{courseOffering_id}/attendance")
-	public List<BarcodeRecord> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
-		Faculty faculty = SecurityUtils.getFaculty()
-				.orElseThrow(() -> new IllegalStateException("Invalid access. Required faculty role."));
-		List<CourseOffering> courseOfferings = courseOfferingService.getAllCourseOfferingsByFaculty(faculty.getId());
-		return barcodeRecordService.getBarcodeRecordByStudentIdAndCourseOfferId(2, 2);
-//		return null;
+	public List<Student> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
+		return studentService.getStudentsByCourseOffering(courseOffering_id);
 	}
 }
