@@ -20,4 +20,6 @@ public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, In
     List<ClassSession> getBarcodeRecordAttendance(@Param("studentId") Integer studentId);
 
     Optional<BarcodeRecord> findByClassSession(ClassSession classSession);
+
+
 }
