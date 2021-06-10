@@ -16,5 +16,6 @@ public interface BarcodeRecordService {
     public List<ClassSession> getBarcodeRecordAttendance(Integer studentId);
     public Optional<BarcodeRecord> findByClassSession(Integer classSessionId);
     public void deleteBarcodeRecord(Integer barcodeRecordId);
+    public Optional<BarcodeRecord> findByBarcodeRecordId(Long barcodeRecordId);
 
 }

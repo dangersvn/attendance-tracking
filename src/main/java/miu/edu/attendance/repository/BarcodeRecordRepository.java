@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, Integer> {
 
-    @Query("select b from BarcodeRecord b, Student st where b.classSession.courseOffering.id = :courseOfferId and st.id = :studentId")
+    @Query("select b from BarcodeRecord b, Student st where b.classSession.courseOffering.id = :courseOfferId and b.student.id = :studentId")
     List<BarcodeRecord> getBarcodeRecordByStudentIdAndCourseOfferId(@Param("studentId") Integer studentId,
                                                                     @Param("courseOfferId") Integer courseOfferId);
 
@@ -22,5 +22,7 @@ public interface BarcodeRecordRepository extends JpaRepository<BarcodeRecord, In
 
     Optional<BarcodeRecord> findByClassSession(ClassSession classSession);
 
+    @Query("select b from BarcodeRecord b where  b.id = :barcodeRecordId")
+    Optional<BarcodeRecord> findByBarcodeId(@Param("barcodeRecordId") Long barcodeRecordId);
 
 }

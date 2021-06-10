@@ -114,9 +114,18 @@ public class BarcodeRecordServiceImpl implements BarcodeRecordService {
     }
 
     @Override
+    public Optional<BarcodeRecord> findByBarcodeRecordId(Long barcodeRecordId){
+        return barcodeRecordRepository.findByBarcodeId(barcodeRecordId);
+    }
+
+    @Override
     public void deleteBarcodeRecord(Integer barcodeRecordId){
         BarcodeRecord barcodeRecord1 = new BarcodeRecord();
         barcodeRecord1.setId(barcodeRecordId);
+        Optional<BarcodeRecord> barcodeRecordOptional =  barcodeRecordService.findByBarcodeRecordId(barcodeRecordId.longValue());
+        if(!barcodeRecordOptional.isPresent()) {
+            throw new IllegalStateException("Action is not supported, register si not in data base");
+        }
         barcodeRecordRepository.delete(barcodeRecord1);
 
     }

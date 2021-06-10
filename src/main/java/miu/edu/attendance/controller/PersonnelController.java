@@ -21,7 +21,6 @@ public class PersonnelController {
 
     @Autowired
     JwtUtil jwtUtil;
-
     @Autowired
     CourseServiceImpl courseService;
     @Autowired
