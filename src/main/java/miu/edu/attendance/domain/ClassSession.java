@@ -27,10 +27,14 @@ public class ClassSession {
     @JoinColumn(name = "courseoffering_id")
     CourseOffering courseOffering;
 
-    LocalDate date;
-
     @ManyToOne
+    @JoinColumn(name = "location_id")
     Location location;
+
+    LocalDate date;
+//
+//    @ManyToOne
+//    Location location;
 
     public ClassSession(TimeSlot timeSlot, LocalDate date, Location location) {
         if(timeSlot == null) {
@@ -49,4 +53,14 @@ public class ClassSession {
                 ", date=" + date +
                 '}';
     }
+
+//    @Override
+//    public String toString() {
+//        return "ClassSession{" +
+//                "id=" + id +
+//                ", timeSlot=" + timeSlot +
+//                ", location=" + location +
+//                ", date=" + date +
+//                '}';
+//    }
 }

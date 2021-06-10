@@ -59,9 +59,14 @@ public class PersonnelController {
        return barcodeRecordService.createBarcodeRecordToStudent(classSessionDTO);
     }
 
+//    @DeleteMapping("/student/{barcodeRecord_id}/barcoderecords")
+//    public void deleteBarcodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecordId){
+//        barcodeRecordService.deleteBarcodeRecord(barcodeRecordId);
+//    }
+
     @DeleteMapping("/student/{barcodeRecord_id}/barcoderecords")
-    public void deleteBarcodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecordId){
-        barcodeRecordService.deleteBarcodeRecord(barcodeRecordId);
+    public void deleteBacodeRecord(@PathVariable("barcodeRecord_id") Integer barcodeRecord ){
+        barcodeRecordService.deleteBarcodeRecord(barcodeRecord);
     }
 
 }
