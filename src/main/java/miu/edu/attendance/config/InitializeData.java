@@ -70,7 +70,7 @@ public class InitializeData {
 
             // create Timeslot
             TimeSlot amTimeSlot = new TimeSlot("AM", LocalTime.of(10,0), LocalTime.of(12,15), "Morning time slot");
-            TimeSlot pmTimeSlot = new TimeSlot("PM", LocalTime.of(13,30), LocalTime.of(15,15), "Afternoon time slot");
+            TimeSlot pmTimeSlot = new TimeSlot("PM", LocalTime.of(13,30), LocalTime.of(22,15), "Afternoon time slot");
             timeSlotRepository.save(amTimeSlot);
             timeSlotRepository.save(pmTimeSlot);
             // fetch all time slots
