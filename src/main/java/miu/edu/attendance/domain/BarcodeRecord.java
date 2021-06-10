@@ -1,9 +1,16 @@
 package miu.edu.attendance.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Data
 @Entity
@@ -23,6 +30,7 @@ public class BarcodeRecord {
     @JoinColumn(name = "location_id")
     Location location;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "student_id")
     Student student;
