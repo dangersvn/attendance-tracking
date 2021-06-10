@@ -4,7 +4,6 @@ import miu.edu.attendance.domain.*;
 import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.security.SecurityUtils;
-import miu.edu.attendance.service.BarcodeRecordService;
 import miu.edu.attendance.service.ClassSessionService;
 import miu.edu.attendance.service.CourseOfferingService;
 import miu.edu.attendance.service.CourseService;
@@ -24,10 +23,7 @@ public class StudentController {
     CourseService courseService;
 
     @Autowired
-    private CourseOfferingService courseOfferingService;
-
-    @Autowired
-    BarcodeRecordService barcodeRecordService;
+    CourseOfferingService courseOfferingService;
 
     @Autowired
     ClassSessionService classSessionService;
