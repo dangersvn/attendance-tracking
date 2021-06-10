@@ -1,6 +1,7 @@
 package miu.edu.attendance.controller;
 
 import miu.edu.attendance.domain.*;
+import miu.edu.attendance.dto.StudentAttendanceDTO;
 import miu.edu.attendance.security.JwtUtil;
 import miu.edu.attendance.security.SecurityUtils;
 import miu.edu.attendance.service.BarcodeRecordService;
@@ -86,7 +87,7 @@ public class StudentController {
     }
 
     @GetMapping("/offerings/{courseOffering_id}/attendance")
-    public List<String> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId) {
+    public List<StudentAttendanceDTO> getAllClassSessionsAndAttendances(@PathVariable("courseOffering_id") Integer courseOfferId) {
         Student student = SecurityUtils.getStudent()
                 .orElseThrow(() -> new IllegalStateException("Invalid access. Required Student role."));
         return classSessionService.attendanceStatus(student.getId(), courseOfferId);
