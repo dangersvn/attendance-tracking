@@ -70,7 +70,7 @@ public class FacultyController {
 	}
 
 	@GetMapping("/offerings/{courseOffering_id}/attendance")
-	public List<List<CourseAttendanceDTO>> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
+	public List<CourseAttendanceDto> getAttendanceforCourseOffering(@PathVariable int courseOffering_id) {
 		List<CourseAttendanceDto> attendanceDetailForCourseOffering = new ArrayList<>();
 		List<Student> students = studentService.getStudentsByCourseOffering(courseOffering_id);
 		CourseAttendanceDto dto;
@@ -78,7 +78,7 @@ public class FacultyController {
 			List<StudentAttendanceDTO> attendanceStatusForOneStudent = classSessionService.attendanceStatus(s.getId(), courseOffering_id);
 			long presentCount = attendanceStatusForOneStudent.stream().filter(a->a.getStatus().equals("Present")).count();
 			long totalCount = attendanceStatusForOneStudent.size();
-			dto = new CourseAttendanceDto(s.person.getFirstName(), s.person.getLastName(), presentCount, totalCount);
+			dto = new CourseAttendanceDto(s.getPerson().getFirstName(), s.getPerson().getLastName(), (int)presentCount, (int)totalCount);
 			attendanceDetailForCourseOffering.add(dto);
 		}
 		return attendanceDetailForCourseOffering;
